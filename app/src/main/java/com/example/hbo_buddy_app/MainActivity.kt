@@ -7,6 +7,7 @@ import android.telecom.Call
 import android.view.View
 import android.widget.Adapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
