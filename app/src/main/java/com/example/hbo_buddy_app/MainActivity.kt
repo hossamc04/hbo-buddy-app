@@ -28,12 +28,12 @@ class MainActivity : AppCompatActivity() {
         val call = api.getShit()
 
 
-        call.enqueue(object: Callback<ArticleList> {
-            override fun onFailure(call: Call<ArticleList>, t: Throwable) {
+        call.enqueue(object: Callback<Student> {
+            override fun onFailure(call: Call<Student>, t: Throwable) {
                 text.text = "Connection failed, try again later"
             }
 
-            override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) {
+            override fun onResponse(call: Call<Student>, response: Response<Student>) {
 
                 recycler.layoutManager = LinearLayoutManager(this@MainActivity)
 
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 val clickInterface:ClickListener = object:ClickListener{
                     override fun onClick(position: Int) {
                         val intent: Intent = Intent(this@MainActivity, Detail::class.java)
-                        intent.putExtra(INTENT_KEY_1, list!!.articles[position].Id)
+                        //intent.putExtra(INTENT_KEY_1, list!!.articles[position].Id)
                         intent.putExtra(AUTHTOKEN, auth)
                         startActivity(intent)
                     }

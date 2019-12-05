@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("buddy")
-    fun getShit(): Call<>
+    fun getShit(): Call<Student>
 }
