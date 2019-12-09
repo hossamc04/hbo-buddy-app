@@ -14,6 +14,8 @@ class BuddyProfileRecyclerViewAdapter : RecyclerView.Adapter<BuddyProfileRecycle
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val name : TextView = itemView.findViewById(R.id.title)
+        val description: TextView = itemView.findViewById(R.id.description)
+
     }
 
     private val myDataset: ArrayList<CoachProfile> = ArrayList()
@@ -28,7 +30,12 @@ class BuddyProfileRecyclerViewAdapter : RecyclerView.Adapter<BuddyProfileRecycle
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.name.text = myDataset[position].student.firstName
+        val coach = myDataset[position].student
+        val firstPlusLastName = "${coach.firstName} ${coach.surName}"
+        holder.name.text = firstPlusLastName
+        //holder.description.text = coach.description
+        holder.description.text = "kankerkankerkankerkankerkankerkankerkanker"
+
 
     }
 
