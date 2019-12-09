@@ -1,4 +1,4 @@
-package com.example.hbo_buddy_app
+package com.example.hbo_buddy_app.models
 
 import java.util.*
 
