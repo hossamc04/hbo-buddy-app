@@ -1,5 +1,7 @@
 package com.example.hbo_buddy_app.select_buddy
 
+import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +14,11 @@ class SelectBuddyViewModel @Inject constructor(
 
     fun getAllCoaches(): LiveData<ArrayList<CoachProfile>> {
         return repository.getBuddyProfileLiveData()
+    }
+
+    fun onBuddySelect(id : Int){
+        Log.d("Buddy with id ${id} selected", "do logic")
+
     }
 
 }

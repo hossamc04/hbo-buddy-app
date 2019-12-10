@@ -3,19 +3,21 @@ package com.example.hbo_buddy_app.select_buddy
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hbo_buddy_app.R
 import com.example.hbo_buddy_app.models.CoachProfile
-import com.example.hbo_buddy_app.models.Student
 
 
-class BuddyProfileRecyclerViewAdapter : RecyclerView.Adapter<BuddyProfileRecyclerViewAdapter.MyViewHolder>() {
+
+class BuddyProfileRecyclerViewAdapter(val act: SelectBuddyActivity) : RecyclerView.Adapter<BuddyProfileRecyclerViewAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val name : TextView = itemView.findViewById(R.id.title)
         val description: TextView = itemView.findViewById(R.id.description)
-
+        //val description: itemView.findViewById(R.)
+        val button : Button = itemView.findViewById(R.id.selecteerBuddyButton)
     }
 
     private val myDataset: ArrayList<CoachProfile> = ArrayList()
@@ -34,7 +36,11 @@ class BuddyProfileRecyclerViewAdapter : RecyclerView.Adapter<BuddyProfileRecycle
         val firstPlusLastName = "${coach.firstName} ${coach.surName}"
         holder.name.text = firstPlusLastName
         //holder.description.text = coach.description
-        holder.description.text = "kankerkankerkankerkankerkankerkankerkanker"
+        holder.description.text = "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        holder.button.text = "selecteer ${coach.firstName}"
+        holder.button.setOnClickListener {
+            act.viewModel.onBuddySelect(coach.studentID)
+        }
 
 
     }

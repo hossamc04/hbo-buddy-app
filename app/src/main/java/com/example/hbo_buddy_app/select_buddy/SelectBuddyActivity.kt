@@ -18,18 +18,21 @@ class SelectBuddyActivity : AppCompatActivity() {
     lateinit var daggerViewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: SelectBuddyViewModel
 
-    val adapter: BuddyProfileRecyclerViewAdapter = BuddyProfileRecyclerViewAdapter()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_buddy)
 
-        //instantiate viewmodel
+
         DaggerSelectBuddyActivityComponent.create().inject(this)
         viewModel = ViewModelProviders.of(this, daggerViewModelFactory).get(SelectBuddyViewModel::class.java)
 
         //setup recyclerview
         buddyProfileRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val adapter = BuddyProfileRecyclerViewAdapter(this)
+
         buddyProfileRecyclerView.adapter = adapter
 
         //observe changes
@@ -37,8 +40,7 @@ class SelectBuddyActivity : AppCompatActivity() {
             Log.d("SIZE", it.size.toString())
             adapter.addItems(it)
         })
-
-
-
     }
+
+
 }
