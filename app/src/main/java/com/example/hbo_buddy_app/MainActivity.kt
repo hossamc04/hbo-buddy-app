@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import com.example.hbo_buddy_app.chat.ChatActivity
 import com.example.hbo_buddy_app.select_buddy.SelectBuddyActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -17,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         toBuddySelection.setOnClickListener{
             val intent = Intent(this, SelectBuddyActivity::class.java)
             ContextCompat.startActivity(this,intent, null)
-
+        }
+        toChat.setOnClickListener {
+            val intent = Intent(this, ChatActivity::class.java)
+            ContextCompat.startActivity(this,intent, null)
         }
     }
 
