@@ -32,7 +32,6 @@ class SelectBuddyActivity : AppCompatActivity() {
         buddyProfileRecyclerView.layoutManager = LinearLayoutManager(this)
 
         val adapter = BuddyProfileRecyclerViewAdapter(this)
-
         buddyProfileRecyclerView.adapter = adapter
 
         //observe changes

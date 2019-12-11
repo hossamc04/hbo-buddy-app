@@ -1,7 +1,23 @@
 package com.example.hbo_buddy_app.models
 
-import java.util.*
 
-class Message (val messageID: Long, val type: String, val payload: String, val created: Date,
-               val lastModified: Date, val senderID: Int, val receiverID: Int) {
-}
+import com.google.gson.annotations.SerializedName
+
+data class Message(
+    val messageID: Int? = null,
+    val created: String,
+    val lastModified: String,
+    val payload: String,
+    val receiverID: Int,
+    val senderID: Int,
+    val type: String
+)
+
+data class SendMessage(
+    val created: String,
+    val lastModified: String,
+    val payload: String,
+    val receiverID: Int,
+    val senderID: Int,
+    val type: String
+)
