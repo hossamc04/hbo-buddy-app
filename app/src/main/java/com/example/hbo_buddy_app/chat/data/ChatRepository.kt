@@ -2,21 +2,18 @@ package com.example.hbo_buddy_app.chat.data
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.hbo_buddy_app.api.ApiService
 import com.example.hbo_buddy_app.models.Message
 import com.example.hbo_buddy_app.models.SendMessage
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.hbo_buddy_app.retrofit.RetroFitService
+
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class ChatRepository @Inject constructor(
-    var retrofitService : ApiService)
+    var retrofitService : RetroFitService)
 {
 
     private fun stringToDate(dateString: String): Date? {
@@ -38,7 +35,7 @@ class ChatRepository @Inject constructor(
 
 
     fun sendMessage(sendMessage: SendMessage){
-        retrofitService.sendMessage(sendMessage).enqueue(object: Callback<Any>{
+/*        retrofitService.sendMessage(sendMessage).enqueue(object: Callback<Any>{
             override fun onFailure(call: Call<Any>, t: Throwable) {
                 //do nothing
             }
@@ -47,13 +44,13 @@ class ChatRepository @Inject constructor(
                 //do nothing
             }
 
-        })
+        })*/
     }
 
     fun getMessagesLiveData(): MutableLiveData<ArrayList<Message>> {
         val mutableLiveData = MutableLiveData<ArrayList<Message>>()
         val mainHandler = Handler(Looper.getMainLooper())
-        mainHandler.post(object : Runnable {
+        /*mainHandler.post(object : Runnable {
             override fun run() {
                 retrofitService.getConversationBetweenBuddyAndTut(123456, 590873).enqueue(object : Callback<ArrayList<Message>> {
                     override fun onFailure(call: Call<ArrayList<Message>>, t: Throwable) {
@@ -72,7 +69,7 @@ class ChatRepository @Inject constructor(
 
                 mainHandler.postDelayed(this, 1000)
             }
-        })
+        })*/
 
 
         return mutableLiveData

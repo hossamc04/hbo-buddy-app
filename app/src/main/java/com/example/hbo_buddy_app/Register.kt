@@ -4,9 +4,9 @@ import java.util.*
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.hbo_buddy_app.api.ApiService
 import com.example.hbo_buddy_app.models.DefaultResponse
 import com.example.hbo_buddy_app.models.RegisterModel
+import com.example.hbo_buddy_app.retrofit.RetroFitService
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -33,7 +33,7 @@ class Register : AppCompatActivity() {
             .baseUrl("http://10.0.2.2:7071")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val api: ApiService = retrofit.create(ApiService::class.java)
+        val api: RetroFitService = retrofit.create(RetroFitService::class.java)
 
         val register = RegisterModel(12, "gfhddghhfg",studentnr, pass, 3)
 

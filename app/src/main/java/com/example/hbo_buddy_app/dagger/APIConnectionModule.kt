@@ -1,6 +1,7 @@
 package com.example.hbo_buddy_app.dagger
 
-import com.example.hbo_buddy_app.api.ApiService
+
+import com.example.hbo_buddy_app.retrofit.RetroFitService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit
 @Module
 class APIConnectionModule{
     @Provides
-    fun provideApiConnection(): ApiService {
+    fun provideApiConnection(): RetroFitService {
         val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"
 
         val  okHttpClient: OkHttpClient = OkHttpClient()
@@ -28,11 +29,7 @@ class APIConnectionModule{
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(ApiService::class.java)
-
-
+            .create(RetroFitService::class.java)
     }
-
-
-    }
+}
 

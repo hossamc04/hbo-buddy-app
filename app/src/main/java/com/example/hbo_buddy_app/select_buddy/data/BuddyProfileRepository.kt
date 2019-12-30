@@ -2,8 +2,8 @@ package com.example.hbo_buddy_app.select_buddy.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.hbo_buddy_app.api.ApiService
 import com.example.hbo_buddy_app.models.CoachProfile
+import com.example.hbo_buddy_app.retrofit.RetroFitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 
 class BuddyProfileRepository @Inject constructor(
-    var retrofitService : ApiService)
+    var retrofitService : RetroFitService)
 {
 
     fun getBuddyProfileLiveData(): MutableLiveData<ArrayList<CoachProfile>> {

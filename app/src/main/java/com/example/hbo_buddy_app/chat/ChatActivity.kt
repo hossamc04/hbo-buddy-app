@@ -9,11 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hbo_buddy_app.R
-import com.example.hbo_buddy_app.dagger.DaggerchatActivityComponent
-import com.example.hbo_buddy_app.select_buddy.BuddyProfileRecyclerViewAdapter
-import com.example.hbo_buddy_app.select_buddy.SelectBuddyViewModel
+import com.example.hbo_buddy_app.dagger.activity_components.DaggerChatActivityComponent
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.activity_select_buddy.*
+
 
 import javax.inject.Inject
 
@@ -29,7 +27,7 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         //viewmodel
-        DaggerchatActivityComponent.create().inject(this)
+        DaggerChatActivityComponent.create().inject(this)
         viewModel = ViewModelProviders.of(this, daggerViewModelFactory).get(ChatViewModel::class.java)
 
         //setuprecyclerview

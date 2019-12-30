@@ -1,9 +1,11 @@
 package com.example.hbo_buddy_app
 
+import android.accounts.AccountManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import com.example.hbo_buddy_app.authenticator.AuthenticatorActivity
 import com.example.hbo_buddy_app.chat.ChatActivity
 import com.example.hbo_buddy_app.select_buddy.SelectBuddyActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,6 +16,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        val am = AccountManager.get(this)
+        val accounts = am.getAccountsByType("inholland_buddy_app")
+
+        //if not logged in redirect to login page
+        if (accounts.isEmpty()){
+            val intent = Intent(this , AuthenticatorActivity::class.java)
+            ContextCompat.startActivity(this, intent, null)
+            finish()
+        }
+
 
 
 

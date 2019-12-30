@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hbo_buddy_app.R
-import com.example.hbo_buddy_app.dagger.DaggerSelectBuddyActivityComponent
+import com.example.hbo_buddy_app.dagger.activity_components.DaggerSelectBuddyActivityComponent
 import kotlinx.android.synthetic.main.activity_select_buddy.*
 import javax.inject.Inject
 
