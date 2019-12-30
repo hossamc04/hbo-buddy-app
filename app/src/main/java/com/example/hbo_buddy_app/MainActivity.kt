@@ -15,14 +15,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        toBuddySelection.setOnClickListener{
+
+
+
+/*        toBuddySelection.setOnClickListener{
             val intent = Intent(this, SelectBuddyActivity::class.java)
             ContextCompat.startActivity(this,intent, null)
-        }
+        }*/
+        /*
         toChat.setOnClickListener {
             val intent = Intent(this, ChatActivity::class.java)
             ContextCompat.startActivity(this,intent, null)
-        }
+        }*/
     }
 
 
