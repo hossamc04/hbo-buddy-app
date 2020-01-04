@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // hier moet gecheckt worden of het een hbo of mbo student is.
+
 
         val am = AccountManager.get(this)
         val accounts = am.getAccountsByType("inholland_buddy_app")
