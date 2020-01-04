@@ -27,11 +27,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainHBOActivity"></activity>
+        <activity android:name=".edit_profile.EditProfileActivity"></activity>
+        <activity android:name=".authenticator.MakeNewAccountActivity" />
         <activity android:name=".authenticator.AuthenticatorActivity" />
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Register"></activity>
-        <activity android:name=".select_buddy.SelectBuddyActivity"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".Register" />
+        <activity android:name=".select_buddy.SelectBuddyActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

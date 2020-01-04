@@ -35,20 +35,20 @@ class Register : AppCompatActivity() {
             .build()
         val api: RetroFitService = retrofit.create(RetroFitService::class.java)
 
-        val register = RegisterModel(12, "gfhddghhfg",studentnr, pass, 3)
+        //val register = RegisterModel(12, "gfhddghhfg",studentnr, pass, 3)
 
         //val call = api.registerStudent(studentnr, pass, 3)
-        val call = api.registerStudent(register)
+        //val call = api.registerStudent(register)
 
-        call.enqueue(object: Callback<DefaultResponse> {
-            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                textView.text = t.message
-            }
+        //call.enqueue(object: Callback<DefaultResponse> {
+          //  override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+          //      textView.text = t.message
+          //  }
 
-            override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+           // override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 //val intent: Intent = Intent(this@Register, MainActivity::class.java)
-            }
-        })
+            //}
+        //})
 
     }
 }

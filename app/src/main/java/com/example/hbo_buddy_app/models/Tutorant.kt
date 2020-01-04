@@ -1,4 +1,8 @@
 package com.example.hbo_buddy_app.models
 
-class Tutorant (val studentID: Int) {
-}
+
+import com.google.gson.annotations.SerializedName
+
+data class Tutorant(
+    val studentID: String
+)
