@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".edit_profile.EditProfileActivity">
+
+<EditText
+    android:id="@+id/edit_first_name"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:hint="voornaam"/>
+
+
+<EditText
+    android:id="@+id/edit_last_name"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:layout_below="@id/edit_first_name"
+    android:hint="achternaam"/>
+
+
+<EditText
+    android:id="@+id/edit_phone_number"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:layout_below="@id/edit_last_name"
+    android:inputType="textPersonName"
+    android:hint="telefoon" />
+
+
+<EditText
+    android:id="@+id/edit_description"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:layout_below="@id/edit_phone_number"
+    android:hint="beschrijving"/>
+
+
+<EditText
+    android:id="@+id/edit_degree"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:layout_below="@id/edit_description"
+    android:hint="opleiding"/>
+
+
+<EditText
+    android:id="@+id/edit_study"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:layout_below="@id/edit_degree"
+    android:hint="studie"/>
+
+
+
+<EditText
+    android:id="@+id/edit_study_year"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="number"
+    android:layout_marginTop="15dp"
+    android:layout_below="@id/edit_study"
+    android:layout_centerHorizontal="true"
+    android:hint="studiejaar"
+
+    />
+
+<EditText
+    android:id="@+id/edit_interest"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:layout_below="@id/edit_study_year"
+    android:hint="intresses"/>
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/edit_interest"
+        android:layout_marginTop="15dp"
+        android:id="@+id/edit_profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="edit" />
+
+
+</RelativeLayout>
+
+    </ScrollView>

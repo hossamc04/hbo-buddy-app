@@ -4,12 +4,26 @@ import android.accounts.AccountManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import com.example.hbo_buddy_app.authenticator.AuthenticatorActivity
+import com.example.hbo_buddy_app.authenticator.TokenHeaderInterceptor
 import com.example.hbo_buddy_app.chat.ChatActivity
+import com.example.hbo_buddy_app.edit_profile.EditProfileActivity
+import com.example.hbo_buddy_app.models.*
+import com.example.hbo_buddy_app.retrofit.RetroFitService
 import com.example.hbo_buddy_app.select_buddy.SelectBuddyActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val zoekBuddyButton : Button = findViewById(R.id.toBuddySelection)
+        zoekBuddyButton.setOnClickListener {
+            val intent = Intent(this, SelectBuddyActivity::class.java)
+            ContextCompat.startActivity(this, intent, null)
+
+        }
 
         val am = AccountManager.get(this)
         val accounts = am.getAccountsByType("inholland_buddy_app")
@@ -26,7 +46,168 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this , AuthenticatorActivity::class.java)
             ContextCompat.startActivity(this, intent, null)
             finish()
+            return
         }
+
+        fun goToEditActivity(student: Student){
+            val intent = Intent(this, EditProfileActivity::class.java)
+            intent.putExtra("profile", student)
+            ContextCompat.startActivity(this, intent, null)
+        }
+
+
+
+        val toProfileButton: Button = findViewById(R.id.toEditProfile)
+
+        toProfileButton.setOnClickListener {
+            val studentId = accounts[0].name
+            val accountType : Int = am.getUserData(accounts[0], "student_type").toInt()
+
+            val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"
+
+            val okHttpClient: OkHttpClient = OkHttpClient()
+                .newBuilder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS).build()
+
+
+            val retroFitService = Retrofit
+                .Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build()
+                .create(RetroFitService::class.java)
+
+            retroFitService.login(LoginModel("581433", "test")).enqueue(object : Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        Log.d("AdminToken", "${response.body()}")
+                        val okHttpClient2 = OkHttpClient()
+                            .newBuilder()
+                            .connectTimeout(60, TimeUnit.SECONDS)
+                            .readTimeout(60, TimeUnit.SECONDS)
+                            .addInterceptor(TokenHeaderInterceptor(response.body()!!))
+                            .writeTimeout(60, TimeUnit.SECONDS).build()
+
+                        val retrofitService2 = Retrofit
+                            .Builder()
+                            .baseUrl(baseUrl)
+                            .addConverterFactory(ScalarsConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(okHttpClient2)
+                            .build()
+                            .create(RetroFitService::class.java)
+
+                        if (accountType == 4) {
+                            retrofitService2.getTutorantProfileById(studentId).enqueue(
+                                object : Callback<TutorantProfile> {
+                                    override fun onFailure(call: Call<TutorantProfile>, t: Throwable) {
+                                        Log.d("a", "b")
+                                    }
+
+                                    override fun onResponse(call: Call<TutorantProfile>, response: Response<TutorantProfile>) {
+                                        if (response.isSuccessful && response.code() == 200) {
+
+                                            goToEditActivity(response.body()!!.student)
+
+                                        }
+
+                                        else if (response.code() == 404) {
+                                            //setButtonMake()
+                                        }
+                                    }
+                                })
+                        }
+                    }
+                }
+            })
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+        //check for profile
+
+
+
+
+
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*                               else if (response.isSuccessful && response.code() !=  200){
+                                    //if not found api returns 500, i dont know why
+                                    Log.d("profile", "${response.code()}")
+                                    retrofitService2.getcoachrofileById(studentId).enqueue(object : Callback<CoachProfile>{
+                                        override fun onFailure(
+                                            call: Call<CoachProfile>,
+                                            t: Throwable
+                                        ) {
+                                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                        }
+
+                                        override fun onResponse(
+                                            call: Call<CoachProfile>,
+                                            response: Response<CoachProfile>
+                                        ) {
+                                            if (response.isSuccessful && response.code() == 200){
+
+                                            }
+
+                                            else if (response.isSuccessful && response.code() == 500){
+                                                // if not found api returns 500 dont know why
+                                                Log.d("error", "no profiles found, make one")
+
+                                            }
+                                        }
+
+                                    })
+                                }
+
+                            }
+                        }
+                    )*/
+
+
+
+
+/*
+
+                }
+            }
+        })
+*/
+
+
 
 
 
@@ -41,7 +222,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ChatActivity::class.java)
             ContextCompat.startActivity(this,intent, null)
         }*/
-    }
+    //}
 
 
 
@@ -85,4 +266,4 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }*/
-}
+//}

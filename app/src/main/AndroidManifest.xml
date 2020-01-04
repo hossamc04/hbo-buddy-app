@@ -3,7 +3,6 @@
     package="com.example.hbo_buddy_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
         android:name="android.permission.AUTHENTICATE_ACCOUNTS"
@@ -20,7 +19,6 @@
         android:name="android.permission.USE_CREDENTIALS"
         android:maxSdkVersion="22" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,12 +27,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".authenticator.AuthenticatorActivity"></activity>
-        <activity android:name=".Login"> </activity>
-
-        <activity android:name=".Register"> </activity>
-        <activity android:name=".select_buddy.SelectBuddyActivity" > </activity>
+        <activity android:name=".edit_profile.EditProfileActivity"></activity>
+        <activity android:name=".authenticator.MakeNewAccountActivity" />
+        <activity android:name=".authenticator.AuthenticatorActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".Register" />
+        <activity android:name=".select_buddy.SelectBuddyActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,8 +53,6 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
-
-
     </application>
 
 </manifest>

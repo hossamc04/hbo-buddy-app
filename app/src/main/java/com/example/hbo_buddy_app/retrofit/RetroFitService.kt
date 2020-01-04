@@ -2,11 +2,9 @@ package com.example.hbo_buddy_app.retrofit
 
 
 import com.example.hbo_buddy_app.models.*
+import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RetroFitService {
   @POST("auth/login")
@@ -18,11 +16,30 @@ interface RetroFitService {
   @POST("/api/auth/login")
   fun loginStudent(@Body body: LoginModel): Call<UserAuth>
 
+  @POST("/api/profile/tutorant")
+  fun addEmptyProfile(@Body body: TutorantProfile) : Call<String>
+
+  @GET("/api/student/{studentId}")
+  fun getProfileInformation(@Path("studentId")studentId: String)  : Call<Student>
+
+   @GET("/api/profile/tutorant/{studentId}")
+   fun getTutorantProfileById(@Path("studentId")studentId: String)  : Call<TutorantProfile>
+
+   @GET("/api/profile/coach/{studentId}")
+   fun getcoachrofileById(@Path("studentId")studentId: String)  : Call<CoachProfile>
+
+    @PUT("/api/student/{studentId}")
+    fun editProfile(@Path("studentId")studentId : String, @Body body: Student) : Call<ResponseBody>
 
 
-  @Headers("Content-Type: application/json")
+
+
+
+
+
+    @Headers("Content-Type: application/json")
   @POST("/api/auth/register")
-  fun registerStudent(@Body body: RegisterModel): Call<DefaultResponse>
+  fun registerStudent(@Body body: RegisterModel): Call<String>
 
 
   //    @FormUrlEncoded

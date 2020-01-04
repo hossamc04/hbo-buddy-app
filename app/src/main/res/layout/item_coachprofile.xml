@@ -7,41 +7,108 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
+    <!--titlelayer-->
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/coach_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:padding="10dp"
-        android:text="test"
+        android:text="coach_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp" />
 
-    <TextView
-        android:layout_toRightOf="@id/imageView"
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:layout_below="@+id/title"/>
-
+    <!--uncollapsableinformationlayer-->
     <ImageView
+        android:id="@+id/coach_image"
         android:minWidth="200dp"
         android:minHeight="200dp"
-        android:layout_below="@+id/title"
-        android:id="@+id/imageView"
+        android:layout_below="@+id/coach_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars[0]" />
 
-    <Button
 
-        android:layout_below="@id/description"
 
-        android:id="@+id/selecteerBuddyButton"
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/coach_study"
+        android:layout_toRightOf="@id/coach_image"
+        android:layout_below="@+id/coach_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:text="coach_study"
+        />
+
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/study_year"
+        android:layout_toRightOf="@id/coach_image"
+        android:layout_below="@+id/coach_study"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="study_year"
+        />
+
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/interests"
+        android:layout_toRightOf="@id/coach_image"
+        android:layout_below="@+id/study_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="interests"
+        />
+
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/read_more"
+        android:layout_toRightOf="@id/coach_image"
+        android:layout_below="@+id/interests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="read more"
+        />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/collapsable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/coach_image">
+
+        <TextView
+            android:layout_margin="15dp"
+            android:id="@+id/coach_bio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test test test test test test test test test test test test test test test testtest test test test test test test testtest test test test test test test testtest test test test test test test test "
+            />
+
+        <Button
+
+            android:id="@+id/selecteerBuddyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/coach_bio"
+            android:text="selecteer buddy"
+            />
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+
 
 
 </RelativeLayout>

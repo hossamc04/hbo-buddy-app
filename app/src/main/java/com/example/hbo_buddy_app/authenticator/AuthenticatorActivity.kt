@@ -5,6 +5,8 @@ import android.accounts.AccountManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -41,13 +43,26 @@ class AuthenticatorActivity : AppCompatActivity() {
             if (it != null){
                 val am = AccountManager.get(this)
                 val acc = Account(viewModel.userName, "inholland_buddy_app")
-                am.addAccountExplicitly(acc, viewModel.passWord, null)
+
+                val extraData = Bundle()
+                extraData.putString("student_type", it)
+
+                am.addAccountExplicitly(acc, viewModel.passWord, extraData)
 
                 val intent = Intent(this , MainActivity::class.java)
                 ContextCompat.startActivity(this, intent, null)
                 finish()
-
             }
         })
+
+        val maakNieuwButton : TextView = findViewById(R.id.maak_nieuw_button)
+
+        maakNieuwButton.setOnClickListener{
+            val intent = Intent(this , MakeNewAccountActivity::class.java)
+            ContextCompat.startActivity(this, intent, null)
+            finish()
+        }
+
+
     }
 }
