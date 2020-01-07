@@ -1,5 +1,7 @@
 package com.example.hbo_buddy_app.select_buddy
 
+import android.accounts.Account
+import android.accounts.AccountManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -21,6 +23,17 @@ class SelectBuddyActivity : AppCompatActivity() {
     lateinit var viewModel: SelectBuddyViewModel
 
     val recyclerViewAdapter = BuddyProfileRecyclerViewAdapter(this)
+
+    fun makeConnection(buddyId: String){
+        val am = AccountManager.get(this)
+        val userid : String  = am.accounts[0].name
+        val acc : Account = am.accounts[0]
+        val pass = am.getPassword(acc)
+        Log.d("pass", "${pass}")
+        viewModel.onBuddySelect(userid, buddyId,pass)
+
+
+    }
 
 
 

@@ -14,11 +14,10 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:padding="10dp"
-        android:text="coach_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp" />
 
-    <!--uncollapsableinformationlayer-->
+
     <ImageView
         android:id="@+id/coach_image"
         android:minWidth="200dp"
@@ -37,7 +36,7 @@
         android:layout_below="@+id/coach_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="coach_study"
+
         />
 
     <TextView
@@ -47,7 +46,7 @@
         android:layout_below="@+id/coach_study"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="study_year"
+
         />
 
     <TextView
@@ -57,18 +56,22 @@
         android:layout_below="@+id/study_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="interests"
+
         />
 
     <TextView
-        android:layout_margin="15dp"
         android:id="@+id/read_more"
-        android:layout_toRightOf="@id/coach_image"
-        android:layout_below="@+id/interests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/interests"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toRightOf="@id/coach_image"
         android:text="read more"
-        />
+        android:textColor="@color/colorAccent" />
 
     <RelativeLayout
         android:visibility="gone"
@@ -82,15 +85,27 @@
             android:id="@+id/coach_bio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="test test test test test test test test test test test test test test test testtest test test test test test test testtest test test test test test test testtest test test test test test test test "
+
             />
+
+        <TextView
+            android:layout_margin="15dp"
+            android:layout_below="@id/coach_bio"
+            android:id="@+id/read_less"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="read less"
+            android:textColor="@color/colorAccent" />
+            />
+
+
 
         <Button
 
             android:id="@+id/selecteerBuddyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/coach_bio"
+            android:layout_below="@id/read_less"
             android:text="selecteer buddy"
             />
 
@@ -114,16 +129,4 @@
 </RelativeLayout>
 
 
-
-<!--<layout-->
-
-
-<!--    <data>
-        <variable
-            name="viewmodel"
-            type="com.example.hbo_buddy_app.select_buddy.SelectBuddyViewModel" />
-    </data>-->
-
-
-<!--</layout>-->
 
