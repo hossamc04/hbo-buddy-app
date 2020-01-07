@@ -14,6 +14,9 @@ import com.example.hbo_buddy_app.edit_profile.EditProfileActivity
 import com.example.hbo_buddy_app.models.*
 import com.example.hbo_buddy_app.retrofit.RetroFitService
 import com.example.hbo_buddy_app.select_buddy.SelectBuddyActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import okhttp3.OkHttpClient
@@ -47,6 +50,12 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.startActivity(this, intent, null)
             finish()
             return
+        }
+
+        fun loginHboStudent(student: Student){
+            val intent = Intent(this, MainHBOActivity::class.java)
+            intent.putExtra("profile", student)
+            ContextCompat.startActivity(this, intent, null)
         }
 
         fun goToEditActivity(student: Student){
@@ -125,6 +134,26 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 })
                         }
+                        else if (accountType == 3){
+                            retrofitService2.getCoachrofileById(studentId).enqueue(
+                                object : Callback<CoachProfile> {
+                                    override fun onFailure(call: Call<CoachProfile>, t: Throwable) {
+                                        Log.d("a", "coachprofile")
+                                    }
+
+                                    override fun onResponse(call: Call<CoachProfile>, response: Response<CoachProfile>) {
+                                        if (response.isSuccessful && response.code() == 200) {
+
+                                            loginHboStudent(response.body()!!.student)
+
+                                        }
+
+                                        else if (response.code() == 404) {
+                                            //setButtonMake()
+                                        }
+                                    }
+                                })
+                        }
                     }
                 }
             })
@@ -145,10 +174,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener<InstanceIdResult> {
 
-
-
-
+            })
     }
 }
 
