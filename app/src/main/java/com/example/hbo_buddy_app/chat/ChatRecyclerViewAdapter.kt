@@ -37,8 +37,15 @@ class ChatRecyclerViewAdapter() : RecyclerView.Adapter<ChatRecyclerViewAdapter.M
     override fun getItemCount() = myDataset.size
 
     fun addItems(messageList: ArrayList<Message>) {
-        myDataset.addAll(messageList)
-        notifyDataSetChanged()
+        messageList.forEach {
+            if (!myDataset.any { message -> message.messageID == it.messageID }){
+                myDataset.add(it)
+                notifyDataSetChanged()
+            }
+        }
+
+
+
     }
     companion object{
         private val myDataset: ArrayList<Message> = ArrayList()

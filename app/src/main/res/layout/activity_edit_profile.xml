@@ -108,14 +108,34 @@ tools:context=".edit_profile.EditProfileActivity">
     android:layout_below="@id/edit_study_year"
     android:hint="intresses"/>
 
+
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/selected_image"
+        android:src="@drawable/emptyprofile"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/edit_interest"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <Button
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/edit_interest"
+        android:id="@+id/upload_image_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Take Picture"
+        android:layout_below="@+id/selected_image"/>
+
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/upload_image_button"
         android:layout_marginTop="15dp"
         android:id="@+id/edit_profile_button"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="edit" />
+        android:text="save profile" />
 
 
 </RelativeLayout>

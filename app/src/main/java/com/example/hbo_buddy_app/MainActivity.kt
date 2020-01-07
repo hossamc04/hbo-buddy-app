@@ -38,7 +38,12 @@ class MainActivity : AppCompatActivity() {
         zoekBuddyButton.setOnClickListener {
             val intent = Intent(this, SelectBuddyActivity::class.java)
             ContextCompat.startActivity(this, intent, null)
+        }
 
+        val naarChatButton : Button = findViewById(R.id.toChat)
+        naarChatButton.setOnClickListener {
+            val intent = Intent(this, ChatActivity:: class.java)
+            ContextCompat.startActivity(this, intent, null )
         }
 
         val am = AccountManager.get(this)

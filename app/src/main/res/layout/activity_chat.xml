@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chat.ChatActivity">
+    tools:context=".chat.ChatActivity"
+    android:orientation="vertical"
+    android:weightSum="100">
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatRecyclerView"
+        android:id="@+id/chat_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="4dp"
-        />
+        android:layout_height="400dp"
+        android:layout_weight="50" />
 
     <EditText
-        android:id="@+id/editTextMessage"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false"
-        android:gravity="top"
-        android:layout_weight="1"
-        android:inputType="textMultiLine"
-        android:maxLines="4"
-        android:minLines="1"
-        android:layout_below="@id/chatRecyclerView"
-        android:textColor="@android:color/black" />
+        android:id="@+id/chat_textedit"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="20"
+        android:ems="20"
+        android:minLines="6"
+        android:lines="8"
+        />
 
     <Button
-        android:id="@+id/buttonSendMessage"
-        android:layout_below="@id/chatRecyclerView"
-        android:layout_toRightOf="@id/editTextMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="send" />
-</RelativeLayout>
+        android:id="@+id/chat_send_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:text="Button" />
+
+
+</LinearLayout>
