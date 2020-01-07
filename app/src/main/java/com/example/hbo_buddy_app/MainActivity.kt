@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                                 })
                         }
                         else if (accountType == 3){
-                            retrofitService2.getCoachrofileById(studentId).enqueue(
+                            retrofitService2.getCoachProfileById(studentId).enqueue(
                                 object : Callback<CoachProfile> {
                                     override fun onFailure(call: Call<CoachProfile>, t: Throwable) {
                                         Log.d("a", "coachprofile")

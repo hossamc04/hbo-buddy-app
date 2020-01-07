@@ -59,7 +59,7 @@ class LoginRepository @Inject constructor(val retroFitService: RetroFitService) 
                             }
 
                             else if (response.code() == 404 || response.code() == 500){
-                                retrofitService2.getCoachrofileById(username).enqueue(object: Callback<CoachProfile>{
+                                retrofitService2.getCoachProfileById(username).enqueue(object: Callback<CoachProfile>{
                                     override fun onFailure(call: Call<CoachProfile>, t: Throwable) {
 
                                     }

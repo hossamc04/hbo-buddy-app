@@ -26,7 +26,7 @@ interface RetroFitService {
    fun getTutorantProfileById(@Path("studentId")studentId: String)  : Call<TutorantProfile>
 
    @GET("/api/profile/coach/{studentId}")
-   fun getcoachrofileById(@Path("studentId")studentId: String)  : Call<CoachProfile>
+   fun getCoachProfileById(@Path("studentId")studentId: String)  : Call<CoachProfile>
 
     @PUT("/api/student/{studentId}")
     fun editProfile(@Path("studentId")studentId : String, @Body body: Student) : Call<ResponseBody>

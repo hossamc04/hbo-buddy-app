@@ -12,7 +12,7 @@ class NotificationService : FirebaseMessagingService() {
             val msg = remoteMessage.notification
             val title: String? = msg?.title
             val body: String? = msg?.body
-            Notifications.displayNotification(applicationContext, title!!, body!!)
+            //Notifications.displayNotification(applicationContext, title!!, body!!)
         }
     }
 

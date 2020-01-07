@@ -3,6 +3,7 @@ package com.example.hbo_buddy_app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.hbo_buddy_app.models.CoachTutorantConnection
 import com.example.hbo_buddy_app.models.Student
 import com.example.hbo_buddy_app.retrofit.RetroFitService
 import okhttp3.ResponseBody
@@ -35,13 +36,13 @@ class MainHBOActivity : AppCompatActivity() {
             .build()
         val api: RetroFitService = retrofit.create(RetroFitService::class.java)
 
-        val call = api.getCoachConnections(student.studentID)
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-              textView.text = t.message
+        val call = api.getCoachTutorantConnection(student.studentID)
+        call.enqueue(object: Callback<CoachTutorantConnection> {
+            override fun onFailure(call: Call<CoachTutorantConnection>, t: Throwable) {
+              //textView.text = t.message
             }
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
 
             }
         })
