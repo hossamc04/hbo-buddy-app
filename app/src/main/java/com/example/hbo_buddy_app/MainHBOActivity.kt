@@ -4,9 +4,12 @@ import android.accounts.AccountManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import com.example.hbo_buddy_app.chat.ChatActivity
 import com.example.hbo_buddy_app.models.CoachTutorantConnection
 import com.example.hbo_buddy_app.models.Student
 import com.example.hbo_buddy_app.retrofit.RetroFitService
+import kotlinx.android.synthetic.main.activity_main_hbo.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +27,11 @@ class MainHBOActivity : AppCompatActivity() {
         val am = AccountManager.get(this)
         val accounts = am.getAccountsByType("inholland_buddy_app")
         val studentId = accounts[0].name
+
+        chatBtn.setOnClickListener{
+            val intent = Intent(this, ChatActivity:: class.java)
+            ContextCompat.startActivity(this, intent, null )
+        }
 
         //val intent: Intent = getIntent()
         //val student: Student = intent.getParcelableExtra("profile")

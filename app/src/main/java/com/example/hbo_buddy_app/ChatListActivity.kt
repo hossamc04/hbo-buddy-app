@@ -3,6 +3,8 @@ package com.example.hbo_buddy_app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hbo_buddy_app.chat.ChatActivity
 import com.example.hbo_buddy_app.models.CoachTutorantConnection
 import com.example.hbo_buddy_app.models.Student
 import com.example.hbo_buddy_app.models.TutorantProfile
@@ -23,11 +25,6 @@ class ChatListActivity : AppCompatActivity() {
 
         val intent: Intent = getIntent()
         val student: Student = intent.getParcelableExtra("profile")
-        val buddies = ArrayList<CoachTutorantConnection>()
-
-        //chatlist.adapter = Adapter
-
-
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://dev-tinderclonefa-test.azurewebsites.net/api/")
@@ -35,14 +32,27 @@ class ChatListActivity : AppCompatActivity() {
             .build()
         val api: RetroFitService = retrofit.create(RetroFitService::class.java)
 
-        val call = api.getCoachTutorantConnection(student.studentID)
-        call.enqueue(object: Callback<CoachTutorantConnection> {
-            override fun onFailure(call: Call<CoachTutorantConnection>, t: Throwable) {
+        val call = api.getCoachTutorantConnections(student.studentID)
+        call.enqueue(object: Callback<List<CoachTutorantConnection>> {
+            override fun onFailure(call: Call<List<CoachTutorantConnection>>, t: Throwable) {
                 //textView.text = t.message
             }
 
-            override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
-                testview.text = response.isSuccessful.toString()
+            override fun onResponse(call: Call<List<CoachTutorantConnection>>, response: Response<List<CoachTutorantConnection>>) {
+                //testview.text = response.isSuccessful.toString()
+                chatlist.layoutManager = LinearLayoutManager(this@ChatListActivity)
+                val buddies = response.body()
+
+                val clickInterface:ClickListener = object:ClickListener{
+                    override fun onItemClick(position: Int) {
+                        val intent: Intent = Intent(this@ChatListActivity, ChatActivity::class.java)
+                        //intent.putExtra(INTENT_KEY_1, buddies!!.get(position))
+                        startActivity(intent)
+                    }
+                }
+                chatlist.adapter = ChatListAdapter(this@ChatListActivity, buddies!!, clickInterface)
+                //chatlist.adapter.notifyDataSetChanged()
+
             }
         })
     }
