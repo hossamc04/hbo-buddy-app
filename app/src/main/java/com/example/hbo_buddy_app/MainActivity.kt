@@ -35,15 +35,6 @@ class MainActivity : AppCompatActivity() {
         val am = AccountManager.get(this)
         val accounts = am.getAccountsByType("inholland_buddy_app")
 
-        //if hbo account redirect to hbo page
-        val accountType : Int = am.getUserData(accounts[0], "student_type").toInt()
-        if (accountType == 3){
-             val intent = Intent(this, MainHBOActivity::class.java)
-            ContextCompat.startActivity(this,intent,null)
-        }
-
-
-
         //if not logged in redirect to login page
         if (accounts.isEmpty()){
             val intent = Intent(this , AuthenticatorActivity::class.java)
@@ -51,6 +42,19 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
+
+
+        //if hbo account redirect to hbo page
+        val accountType : Int = am.getUserData(accounts[0], "student_type").toInt()
+        if (accountType == 3){
+             val intent = Intent(this, MainHBOActivity::class.java)
+            ContextCompat.startActivity(this,intent,null)
+            finish()
+            return
+        }
+
+
+
 
 
 

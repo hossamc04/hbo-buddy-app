@@ -123,7 +123,7 @@ class BuddyProfileRepository @Inject constructor(
                             val arr = response.body()!!
 
                             arr.forEach{
-                                if (it.coach.workload == 0 || it.student.firstName == "mock"){
+                                if (it.coach.workload == "0" || it.student.firstName == "mock"){
                                     arr.remove(it)
                                 }
                             }
