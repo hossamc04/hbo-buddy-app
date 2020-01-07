@@ -13,6 +13,7 @@ import com.example.hbo_buddy_app.MainActivity
 import com.example.hbo_buddy_app.R
 import com.example.hbo_buddy_app.models.*
 import com.example.hbo_buddy_app.retrofit.RetroFitService
+import kotlinx.android.synthetic.main.activity_make_new_account.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,15 +33,17 @@ class MakeNewAccountActivity : AppCompatActivity() {
         val leerlingnummer: EditText = findViewById(R.id.nieuw_acc_leerlingnummer)
         val wachtwoord: EditText = findViewById(R.id.niew_account_password)
 
-        fun addAccount(string: String) {
+        fun addAccount(accountType: String) {
 
             val am = AccountManager.get(this)
             val acc = Account(leerlingnummer.text.toString(),"inholland_buddy_app")
             val extraData = Bundle()
-            extraData.putString("student_type", "4")
+            extraData.putString("student_type", accountType)
             am.addAccountExplicitly(acc, wachtwoord.text.toString(), extraData)
+
             val intent = Intent(this, MainActivity::class.java)
             ContextCompat.startActivity(this, intent, null)
+
             finish()
         }
 
@@ -91,11 +94,21 @@ class MakeNewAccountActivity : AppCompatActivity() {
                             .build()
                             .create(RetroFitService::class.java)
 
+                        var role : Int?  = null;
+
+                        if (!checkBox.isChecked){
+                            role = 4
+                        }
+
+                        else {
+                            role = 3
+                        }
+
                         retrofitService2.registerStudent(
                             RegisterModel(
                                 leerlingnummer.text.toString(),
                                 response.body()!!,
-                                4
+                                role
                             )
                         ).enqueue(object : Callback<String> {
                             override fun onFailure(call: Call<String>, t: Throwable) {
@@ -103,8 +116,8 @@ class MakeNewAccountActivity : AppCompatActivity() {
                             }
 
                             override fun onResponse(call: Call<String>, response: Response<String>) {
-                                if (response.isSuccessful && response.code() == 201){
-                                    retrofitService2.addEmptyProfile(TutorantProfile(
+                                if (response.isSuccessful && response.code() == 201 && role == 4){
+                                    retrofitService2.addTutorantProfile(TutorantProfile(
                                       Student("","", "mock","" ,"" ,"" ,leerlingnummer.text.toString() ,"",2,""),
                                         Tutorant(leerlingnummer.text.toString())
                                     )).enqueue(object : Callback<String>{
@@ -116,10 +129,15 @@ class MakeNewAccountActivity : AppCompatActivity() {
                                         override fun onResponse(call: Call<String>, response: Response<String>) {
                                             if (response.isSuccessful()){
                                                 Log.d("responsecode", "${response.code()}")
-                                                addAccount(leerlingnummer.text.toString())
+                                                addAccount("4")
                                             }
                                         }
                                     })
+                                }
+
+                                else if (response.isSuccessful&& response.code() == 201 && role ==3){
+                                    Log.d("GOED", "GOED")
+                                    addAccount("3")
                                 }
 
                                 else if (response.isSuccessful && response.code() != 201){

@@ -1,5 +1,6 @@
 package com.example.hbo_buddy_app
 
+import android.accounts.AccountManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,12 +20,17 @@ class MainHBOActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_hbo)
 
-        val intent: Intent = getIntent()
-        val student: Student = intent.getParcelableExtra("profile")
 
-        if (student.studentID.toInt() != 3){
+        val am = AccountManager.get(this)
+        val accounts = am.getAccountsByType("inholland_buddy_app")
+        val studentId = accounts[0].name
 
-        }
+        //val intent: Intent = getIntent()
+        //val student: Student = intent.getParcelableExtra("profile")
+
+      /*  if (student.studentID.toInt() != 3){
+
+        }*/
 
 
         //check if user is hbo student.
@@ -36,8 +42,8 @@ class MainHBOActivity : AppCompatActivity() {
             .build()
         val api: RetroFitService = retrofit.create(RetroFitService::class.java)
 
-        val call = api.getCoachTutorantConnection(student.studentID)
-        call.enqueue(object: Callback<CoachTutorantConnection> {
+        //val call = api.getCoachTutorantConnection(student.studentID)
+/*        call.enqueue(object: Callback<CoachTutorantConnection> {
             override fun onFailure(call: Call<CoachTutorantConnection>, t: Throwable) {
               //textView.text = t.message
             }
@@ -45,6 +51,6 @@ class MainHBOActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
 
             }
-        })
+        })*/
     }
 }

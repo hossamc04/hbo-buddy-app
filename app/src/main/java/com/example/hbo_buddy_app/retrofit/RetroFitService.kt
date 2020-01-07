@@ -17,7 +17,10 @@ interface RetroFitService {
   fun loginStudent(@Body body: LoginModel): Call<UserAuth>
 
   @POST("/api/profile/tutorant")
-  fun addEmptyProfile(@Body body: TutorantProfile) : Call<String>
+  fun addTutorantProfile(@Body body: TutorantProfile) : Call<String>
+
+    @POST("/api/profile/coach")
+    fun addCoachProfile(@Body body: CoachProfile) : Call<String>
 
   @GET("/api/student/{studentId}")
   fun getProfileInformation(@Path("studentId")studentId: String)  : Call<Student>

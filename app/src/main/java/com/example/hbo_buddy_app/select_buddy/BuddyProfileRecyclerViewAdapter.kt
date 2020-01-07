@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ class BuddyProfileRecyclerViewAdapter(val act: SelectBuddyActivity) : RecyclerVi
         val interests : TextView = itemView.findViewById(R.id.interests)
         val study : TextView = itemView.findViewById(R.id.coach_study)
         val studyYear : TextView = itemView.findViewById(R.id.study_year)
-        val image : TextView = itemView.findViewById(R.id.coach_image)
+        val image : ImageView = itemView.findViewById(R.id.coach_image)
         val readmore : TextView = itemView.findViewById(R.id.read_more)
         //collapsable
         val collapsable : RelativeLayout  = itemView.findViewById(R.id.collapsable)
@@ -61,14 +62,12 @@ class BuddyProfileRecyclerViewAdapter(val act: SelectBuddyActivity) : RecyclerVi
         holder.button.text = "selecteer ${coach.firstName}"
 
         if (myDataset[position].student.photo != ""){
-/*            try{
-                Glide.with(act).load(myDataset[position].student.photo).into(image)}
+            try{
+                Glide.with(act).load(myDataset[position].student.photo).into(holder.image)}
             catch (e: Exception){
-                Log.d("fout", "${e}")
-
-            }*/
-
-
+                //Log.d("fout", "${e}")
+                //holder.image.set
+        }
         }
 
 
