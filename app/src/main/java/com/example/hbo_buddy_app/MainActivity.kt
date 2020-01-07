@@ -17,8 +17,6 @@ import com.example.hbo_buddy_app.select_buddy.SelectBuddyActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,6 +32,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val am = AccountManager.get(this)
+        val accounts = am.getAccountsByType("inholland_buddy_app")
+
+        //if hbo account redirect to hbo page
+        val accountType : Int = am.getUserData(accounts[0], "student_type").toInt()
+        if (accountType == 3){
+             val intent = Intent(this, MainHBOActivity::class.java)
+            ContextCompat.startActivity(this,intent,null)
+        }
+
+
+
+        //if not logged in redirect to login page
+        if (accounts.isEmpty()){
+            val intent = Intent(this , AuthenticatorActivity::class.java)
+            ContextCompat.startActivity(this, intent, null)
+            finish()
+            return
+        }
+
+
+
+
         val zoekBuddyButton : Button = findViewById(R.id.toBuddySelection)
         zoekBuddyButton.setOnClickListener {
             val intent = Intent(this, SelectBuddyActivity::class.java)
@@ -46,28 +67,14 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.startActivity(this, intent, null )
         }
 
-        val am = AccountManager.get(this)
-        val accounts = am.getAccountsByType("inholland_buddy_app")
-
-        //if not logged in redirect to login page
-        if (accounts.isEmpty()){
-            val intent = Intent(this , AuthenticatorActivity::class.java)
-            ContextCompat.startActivity(this, intent, null)
-            finish()
-            return
-        }
-
-        fun loginHboStudent(student: Student){
-            val intent = Intent(this, MainHBOActivity::class.java)
-            intent.putExtra("profile", student)
-            ContextCompat.startActivity(this, intent, null)
-        }
 
         fun goToEditActivity(student: Student){
             val intent = Intent(this, EditProfileActivity::class.java)
             intent.putExtra("profile", student)
             ContextCompat.startActivity(this, intent, null)
         }
+
+
 
 
 
@@ -119,49 +126,26 @@ class MainActivity : AppCompatActivity() {
                             .build()
                             .create(RetroFitService::class.java)
 
-                        if (accountType == 4) {
+
                             retrofitService2.getTutorantProfileById(studentId).enqueue(
                                 object : Callback<TutorantProfile> {
                                     override fun onFailure(call: Call<TutorantProfile>, t: Throwable) {
                                         Log.d("a", "b")
                                     }
-
                                     override fun onResponse(call: Call<TutorantProfile>, response: Response<TutorantProfile>) {
                                         if (response.isSuccessful && response.code() == 200) {
 
                                             goToEditActivity(response.body()!!.student)
 
                                         }
-
                                         else if (response.code() == 404) {
                                             //setButtonMake()
                                         }
                                     }
                                 })
-                        }
-                        else if (accountType == 3){
-                            retrofitService2.getCoachProfileById(studentId).enqueue(
-                                object : Callback<CoachProfile> {
-                                    override fun onFailure(call: Call<CoachProfile>, t: Throwable) {
-                                        Log.d("a", "coachprofile")
-                                    }
-
-                                    override fun onResponse(call: Call<CoachProfile>, response: Response<CoachProfile>) {
-                                        if (response.isSuccessful && response.code() == 200) {
-
-                                            loginHboStudent(response.body()!!.student)
-
-                                        }
-
-                                        else if (response.code() == 404) {
-                                            //setButtonMake()
-                                        }
-                                    }
-                                })
-                        }
-                    }
-                }
-            })
+                            }
+                         }
+                     })
 
 
 

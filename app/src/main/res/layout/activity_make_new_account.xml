@@ -35,4 +35,13 @@
         android:layout_height="wrap_content"
         android:text="submit" />
 
+    <CheckBox
+       android:layout_margin="10dp"
+        android:layout_below="@id/submit_new_button"
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="hbo-account" />
+
 </RelativeLayout>

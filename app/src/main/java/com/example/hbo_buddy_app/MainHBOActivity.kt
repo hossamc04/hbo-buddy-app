@@ -1,14 +1,12 @@
 package com.example.hbo_buddy_app
 
+import android.accounts.AccountManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import com.example.hbo_buddy_app.chat.ChatActivity
 import com.example.hbo_buddy_app.models.CoachTutorantConnection
 import com.example.hbo_buddy_app.models.Student
 import com.example.hbo_buddy_app.retrofit.RetroFitService
-import kotlinx.android.synthetic.main.activity_main_hbo.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,16 +20,20 @@ class MainHBOActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_hbo)
 
-        val intent: Intent = getIntent()
-        val student: Student = intent.getParcelableExtra("profile")
 
-        test.text = student.firstName
+        val am = AccountManager.get(this)
+        val accounts = am.getAccountsByType("inholland_buddy_app")
+        val studentId = accounts[0].name
 
-        chatBtn.setOnClickListener{
-            val intent = Intent(this, ChatActivity:: class.java)
-            ContextCompat.startActivity(this, intent, null )
-        }
+        //val intent: Intent = getIntent()
+        //val student: Student = intent.getParcelableExtra("profile")
 
+      /*  if (student.studentID.toInt() != 3){
+
+        }*/
+
+
+        //check if user is hbo student.
         //check if someone matched
 
         val retrofit = Retrofit.Builder()
@@ -40,8 +42,8 @@ class MainHBOActivity : AppCompatActivity() {
             .build()
         val api: RetroFitService = retrofit.create(RetroFitService::class.java)
 
-        val call = api.getCoachTutorantConnection(student.studentID)
-        call.enqueue(object: Callback<CoachTutorantConnection> {
+        //val call = api.getCoachTutorantConnection(student.studentID)
+/*        call.enqueue(object: Callback<CoachTutorantConnection> {
             override fun onFailure(call: Call<CoachTutorantConnection>, t: Throwable) {
               //textView.text = t.message
             }
@@ -49,6 +51,6 @@ class MainHBOActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
 
             }
-        })
+        })*/
     }
 }

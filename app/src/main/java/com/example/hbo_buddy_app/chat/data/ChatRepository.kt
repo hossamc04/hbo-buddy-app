@@ -48,9 +48,6 @@ class ChatRepository @Inject constructor(
                     //this arraylist contains everything fetched including duplicates
 
 
-
-
-
                     override fun onResponse(call: retrofit2.Call<String>, response: Response<String>) {
 
                         val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"

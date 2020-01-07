@@ -74,6 +74,7 @@
             android:layout_below="@+id/button_login"
             android:text="of maak een nieuw account"
             android:layout_margin="15dp"
+
             />
 
 
