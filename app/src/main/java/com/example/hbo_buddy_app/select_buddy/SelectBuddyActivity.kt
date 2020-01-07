@@ -77,6 +77,4 @@ class SelectBuddyActivity : AppCompatActivity() {
         outState.putParcelableArrayList("ARTICLE_LIST", recyclerViewAdapter.myDataset)
         super.onSaveInstanceState(outState)
     }
-
-
 }
