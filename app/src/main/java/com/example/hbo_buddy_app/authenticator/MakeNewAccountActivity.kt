@@ -136,8 +136,28 @@ class MakeNewAccountActivity : AppCompatActivity() {
                                 }
 
                                 else if (response.isSuccessful&& response.code() == 201 && role ==3){
-                                    Log.d("GOED", "GOED")
-                                    addAccount("3")
+
+                                    retrofitService2.addCoachProfile(
+                                        CoachProfile(
+                                            Coach(leerlingnummer.text.toString(), "8"),
+                                            Student("","", "mock","" ,"" ,"" ,leerlingnummer.text.toString() ,"",2,"")
+                                        )
+                                    ).enqueue(object : Callback<String>{
+                                        override fun onFailure(call: Call<String>, t: Throwable) {
+                                            Log.d("responsecode", "${response.code()}")
+
+
+                                        }
+
+                                        override fun onResponse(call: Call<String>, response: Response<String>) {
+                                            Log.d("responsecode", "${response.code()}")
+                                            addAccount("3")
+
+                                        }
+
+                                    })
+
+
                                 }
 
                                 else if (response.isSuccessful && response.code() != 201){

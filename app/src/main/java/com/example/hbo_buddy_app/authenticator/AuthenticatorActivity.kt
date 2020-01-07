@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.hbo_buddy_app.MainActivity
+import com.example.hbo_buddy_app.MainHBOActivity
 import com.example.hbo_buddy_app.R
 import com.example.hbo_buddy_app.dagger.activity_components.DaggerAuthenticatorActivityComponent
 import com.example.hbo_buddy_app.databinding.ActivityAuthenticatorBinding
@@ -46,12 +47,22 @@ class AuthenticatorActivity : AppCompatActivity() {
 
                 val extraData = Bundle()
                 extraData.putString("student_type", it)
-
                 am.addAccountExplicitly(acc, viewModel.passWord, extraData)
 
-                val intent = Intent(this , MainActivity::class.java)
-                ContextCompat.startActivity(this, intent, null)
-                finish()
+                if (it == "3"){
+                    val intent = Intent(this , MainHBOActivity::class.java)
+                    ContextCompat.startActivity(this, intent, null)
+                    finish()
+
+                }
+
+                if (it == "4"){
+                    val intent = Intent(this , MainActivity::class.java)
+                    ContextCompat.startActivity(this, intent, null)
+                    finish()
+
+                }
+
             }
         })
 

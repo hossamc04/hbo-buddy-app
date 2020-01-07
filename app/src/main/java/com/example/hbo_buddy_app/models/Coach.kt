@@ -6,18 +6,18 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class Coach(
-    val studentID: Int,
-    val workload: Int
+    val studentID: String,
+    val workload: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readInt()
+        parcel.readString()!!,
+        parcel.readString()!!
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(studentID)
-        parcel.writeInt(workload)
+        parcel.writeString(studentID)
+        parcel.writeString(workload)
     }
 
     override fun describeContents(): Int {

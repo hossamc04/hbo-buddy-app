@@ -69,6 +69,7 @@ class LoginRepository @Inject constructor(val retroFitService: RetroFitService) 
                                             tokenLiveData.value = "3"
                                         }
                                         else{
+                                            Log.d("response", "")
                                             tokenLiveData.value = null
                                         }
                                     }
