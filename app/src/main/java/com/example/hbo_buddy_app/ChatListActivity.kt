@@ -7,7 +7,6 @@ import com.example.hbo_buddy_app.models.CoachTutorantConnection
 import com.example.hbo_buddy_app.models.Student
 import com.example.hbo_buddy_app.models.TutorantProfile
 import com.example.hbo_buddy_app.retrofit.RetroFitService
-import kotlinx.android.synthetic.main.activity_chat_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +41,7 @@ class ChatListActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
-                testview.text = response.isSuccessful.toString()
+                //testview.text = response.isSuccessful.toString()
             }
         })
     }
