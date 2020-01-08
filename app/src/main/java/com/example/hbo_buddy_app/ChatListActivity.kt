@@ -105,15 +105,17 @@ class ChatListActivity : AppCompatActivity() {
                             }
                             val buddies = response.body()
 
+                            val list: MutableList<Student> = mutableListOf<Student>()
+
                             val clickInterface: ClickListener = object : ClickListener {
                                 override fun onItemClick(position: Int) {
                                     val intent: Intent =
                                         Intent(this@ChatListActivity, ChatActivity::class.java)
-                                    //intent.putExtra(INTENT_KEY_1, buddies!!.get(position))
+                                    intent.putExtra("TUTORANT", list!!.get(position).studentID)
                                     startActivity(intent)
                                 }
                             }
-                            val list: MutableList<Student> = mutableListOf<Student>()
+
                             val adapter = ChatListAdapter(this@ChatListActivity, list!!, clickInterface)
 
                             buddies!!.forEach {

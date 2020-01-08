@@ -46,6 +46,9 @@ interface RetroFitService {
     @GET("/api/coachTutorant/coach/{studentId}")
     fun getCoachTutorantConnections(@Path("studentId")studentId: String ) : Call<List<CoachTutorantConnection>>
 
+    @GET("/api/coachTutorant/coach/{studentId}")
+    fun getCoachTutorantConnectionC(@Path("studentId")studentId: String ) : Call<CoachTutorantConnection>
+
     @GET("/api/messages/{senderId}/{recieverId}")
     fun getMessages(@Path("senderId")senderId: String, @Path("recieverId")recieverId : String) : Call<ArrayList<Message>>
 

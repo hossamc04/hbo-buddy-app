@@ -17,7 +17,6 @@
             />
 
         <EditText
-
             android:id="@+id/gebruikersnaam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +26,6 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="15dp"
             android:layout_below="@+id/login"
-
             />
 
         <EditText
@@ -59,7 +57,6 @@
             android:layout_below="@+id/button_login"
             android:text="of maak een nieuw account"
             android:layout_margin="15dp"
-
             />
 
 

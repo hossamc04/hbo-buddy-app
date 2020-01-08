@@ -14,6 +14,7 @@ import com.example.hbo_buddy_app.authenticator.TokenHeaderInterceptor
 import com.example.hbo_buddy_app.dagger.activity_components.DaggerChatActivityComponent
 import com.example.hbo_buddy_app.models.CoachTutorantConnection
 import com.example.hbo_buddy_app.models.LoginModel
+import com.example.hbo_buddy_app.models.Student
 import com.example.hbo_buddy_app.retrofit.RetroFitService
 import kotlinx.android.synthetic.main.activity_chat.*
 import okhttp3.OkHttpClient
@@ -38,6 +39,8 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        val tutorant = intent.extras!!.get("TUTORANT").toString()
 
         //viewmodel
         DaggerChatActivityComponent.create().inject(this)
@@ -95,28 +98,58 @@ class ChatActivity : AppCompatActivity() {
 
                 //observeMessages()
 
-                retrofitService2.getCoachTutorantConnection(studentId).enqueue(object : Callback<CoachTutorantConnection>{
-                    override fun onFailure(call: Call<CoachTutorantConnection>, t: Throwable) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
-                        if (response.isSuccessful && response.code() == 200){
-
-                            Log.d("studentId", "${studentId}")
-                            Log.d("coachId", "${response.body()!!.studentIDCoach}")
-                            observeMessages(studentId,response.body()!!.studentIDCoach)
-
-                            chat_send_button.setOnClickListener {
-                                sendMessage(studentId, response.body()!!.studentIDCoach)
-                            }
-
-
+                if(accountType == 4){
+                    retrofitService2.getCoachTutorantConnection(studentId).enqueue(object : Callback<CoachTutorantConnection>{
+                        override fun onFailure(call: Call<CoachTutorantConnection>, t: Throwable) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                         }
+
+                        override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
+                            if (response.isSuccessful && response.code() == 200){
+
+                                Log.d("studentId", "${studentId}")
+                                Log.d("coachId", "${response.body()!!.studentIDCoach}")
+                                observeMessages(studentId,response.body()!!.studentIDCoach)
+
+                                chat_send_button.setOnClickListener {
+                                    sendMessage(studentId, response.body()!!.studentIDCoach)
+                                }
+
+
+                            }
+                        }
+
+                    })
+                }
+                else if(accountType == 3){
+
+                    retrofitService2.getStudent(tutorant).enqueue(object : Callback<Student>{
+                        override fun onFailure(call: Call<Student>, t: Throwable) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
+
+                        override fun onResponse(call: Call<Student>, response: Response<Student>) {
+                            if (response.isSuccessful && response.code() == 200){
+                                setTitle(response.body()!!.firstName)
+
+                            }
+                        }
+
+                    })
+
+
+                    Log.d("studentId", "${studentId}")
+                    Log.d("coachId", "${tutorant}")
+                    val student =
+                    observeMessages(studentId,tutorant)
+
+                    chat_send_button.setOnClickListener {
+                        sendMessage(studentId, tutorant)
                     }
 
-                })
 
+
+                }
             }
 
         }

@@ -22,6 +22,9 @@ class ChatListAdapter(val context: Context, val list: MutableList<Student>, val 
     }
 
     fun addItems(student: Student){
+        if (list.contains(student)){
+            return
+        }
         list.add(student)
         notifyDataSetChanged()
     }
