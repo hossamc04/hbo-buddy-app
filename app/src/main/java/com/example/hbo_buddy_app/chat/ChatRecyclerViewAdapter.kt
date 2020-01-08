@@ -1,5 +1,6 @@
 package com.example.hbo_buddy_app.chat
 
+import android.accounts.AccountManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class ChatRecyclerViewAdapter() : RecyclerView.Adapter<ChatRecyclerViewAdapter.M
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val message : TextView = itemView.findViewById(R.id.message)
+        val poster : TextView = itemView.findViewById(R.id.poster)
     }
 
 
@@ -29,8 +31,20 @@ class ChatRecyclerViewAdapter() : RecyclerView.Adapter<ChatRecyclerViewAdapter.M
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val am = AccountManager.get(holder.itemView.context)
+        val accounts = am.getAccountsByType("inholland_buddy_app")
+
+        val studentId = accounts[0].name
+
         val message = myDataset[position]
         holder.message.text = message.payload
+        if (message.senderID == studentId){
+            holder.poster.text = "You"
+        }
+        else{
+            holder.poster.text = "Them"
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

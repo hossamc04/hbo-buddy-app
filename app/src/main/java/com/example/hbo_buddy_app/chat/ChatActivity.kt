@@ -40,7 +40,6 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        val tutorant = intent.extras!!.get("TUTORANT").toString()
 
         //viewmodel
         DaggerChatActivityComponent.create().inject(this)
@@ -122,7 +121,7 @@ class ChatActivity : AppCompatActivity() {
                     })
                 }
                 else if(accountType == 3){
-
+                    val tutorant = intent.extras!!.get("TUTORANT").toString()
                     retrofitService2.getStudent(tutorant).enqueue(object : Callback<Student>{
                         override fun onFailure(call: Call<Student>, t: Throwable) {
                             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
