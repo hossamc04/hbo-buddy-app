@@ -165,8 +165,6 @@ class MakeNewAccountActivity : AppCompatActivity() {
 
                                 }
                             }
-
-
                         })
                     }
                 }

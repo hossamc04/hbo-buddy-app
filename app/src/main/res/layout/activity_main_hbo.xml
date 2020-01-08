@@ -6,32 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainHBOActivity">
 
-    <TextView
-        android:id="@+id/test"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hbo"
-        android:textAlignment="center"
-        android:textColor="#ff69b4"
-        android:textSize="50dp" />
+        android:layout_centerInParent="true"
+        >
 
-    <Button
-        android:id="@+id/chatBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/test"
-        android:layout_marginTop="35dp"
-        android:text="To chat"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="113dp" />
+        <Button
+            android:id="@+id/chatBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To chat" />
 
-    <Button
-        android:id="@+id/toEditProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toChat"
-        android:layout_marginTop="25dp"
-        android:text="Edit profile" />
+        <Button
+            android:id="@+id/editProfileBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit profile" />
+    </LinearLayout>
 
 </RelativeLayout>
