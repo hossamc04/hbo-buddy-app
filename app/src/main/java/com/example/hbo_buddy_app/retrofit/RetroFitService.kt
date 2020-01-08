@@ -7,29 +7,32 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface RetroFitService {
-  @POST("/api/auth/login")
-  fun login(@Body login : LoginModel): Call<String>
-  @GET("/api/profile/coach")
-  fun getAllCoachProfiles(): Call<ArrayList<CoachProfile>>
+    @POST("/api/auth/login")
+    fun login(@Body login : LoginModel): Call<String>
+    @GET("/api/profile/coach")
+    fun getAllCoachProfiles(): Call<ArrayList<CoachProfile>>
 
-  @Headers("Content-Type: application/json")
-  @POST("/api/auth/login")
-  fun loginStudent(@Body body: LoginModel): Call<UserAuth>
+    @GET("/api/student/{studentId}")
+    fun getStudent(@Path("studentId")studentId: String): Call<Student>
 
-  @POST("/api/profile/tutorant")
-  fun addTutorantProfile(@Body body: TutorantProfile) : Call<String>
+    @Headers("Content-Type: application/json")
+    @POST("/api/auth/login")
+    fun loginStudent(@Body body: LoginModel): Call<UserAuth>
+
+    @POST("/api/profile/tutorant")
+    fun addTutorantProfile(@Body body: TutorantProfile) : Call<String>
 
     @POST("/api/profile/coach")
     fun addCoachProfile(@Body body: CoachProfile) : Call<String>
 
-  @GET("/api/student/{studentId}")
-  fun getProfileInformation(@Path("studentId")studentId: String)  : Call<Student>
+    @GET("/api/student/{studentId}")
+    fun getProfileInformation(@Path("studentId")studentId: String)  : Call<Student>
 
-   @GET("/api/profile/tutorant/{studentId}")
-   fun getTutorantProfileById(@Path("studentId")studentId: String)  : Call<TutorantProfile>
+    @GET("/api/profile/tutorant/{studentId}")
+    fun getTutorantProfileById(@Path("studentId")studentId: String)  : Call<TutorantProfile>
 
-   @GET("/api/profile/coach/{studentId}")
-   fun getCoachProfileById(@Path("studentId")studentId: String)  : Call<CoachProfile>
+    @GET("/api/profile/coach/{studentId}")
+    fun getCoachProfileById(@Path("studentId")studentId: String)  : Call<CoachProfile>
 
     @PUT("/api/student/{studentId}")
     fun editProfile(@Path("studentId")studentId : String, @Body body: Student) : Call<ResponseBody>
@@ -40,7 +43,7 @@ interface RetroFitService {
     @GET("/api/coachTutorant/tutorant/{studentId}")
     fun getCoachTutorantConnection(@Path("studentId")studentId: String ) : Call<CoachTutorantConnection>
 
-    @GET("/api/coachTutorant/tutorant/{studentId}")
+    @GET("/api/coachTutorant/coach/{studentId}")
     fun getCoachTutorantConnections(@Path("studentId")studentId: String ) : Call<List<CoachTutorantConnection>>
 
     @GET("/api/messages/{senderId}/{recieverId}")

@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit
 class MainHBOActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("Home")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_hbo)
 

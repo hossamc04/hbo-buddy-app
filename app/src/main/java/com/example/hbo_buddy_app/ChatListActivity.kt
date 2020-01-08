@@ -8,10 +8,7 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hbo_buddy_app.authenticator.TokenHeaderInterceptor
 import com.example.hbo_buddy_app.chat.ChatActivity
-import com.example.hbo_buddy_app.models.CoachTutorantConnection
-import com.example.hbo_buddy_app.models.LoginModel
-import com.example.hbo_buddy_app.models.Student
-import com.example.hbo_buddy_app.models.TutorantProfile
+import com.example.hbo_buddy_app.models.*
 import com.example.hbo_buddy_app.retrofit.RetroFitService
 import kotlinx.android.synthetic.main.activity_chat_list.*
 import okhttp3.OkHttpClient
@@ -26,6 +23,7 @@ import java.util.concurrent.TimeUnit
 class ChatListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("Chats")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
 
@@ -33,9 +31,6 @@ class ChatListActivity : AppCompatActivity() {
         val accounts = am.getAccountsByType("inholland_buddy_app")
         val studentId = accounts[0].name
         val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"
-
-//        val intent: Intent = getIntent()
-//        val student: Student = intent.getParcelableExtra("profile")
 
         val okHttpClient: OkHttpClient = OkHttpClient()
             .newBuilder()
@@ -95,8 +90,7 @@ class ChatListActivity : AppCompatActivity() {
                                 status.text = "You have yet to be matched up with!"
                                 return
                             }
-                            val a = response.code()
-                            //testview.text = response.isSuccessful.toString()
+
                             chatlist.layoutManager = LinearLayoutManager(this@ChatListActivity)
                             val buddies = response.body()
 
@@ -108,8 +102,14 @@ class ChatListActivity : AppCompatActivity() {
                                     startActivity(intent)
                                 }
                             }
+                            val list: MutableList<Student> = mutableListOf<Student>()
+                            buddies!!.forEach {
+                                val tutorant = getTutorant(it.studentIDTutorant, okHttpClient2)
+                                list.add(tutorant)
+                            }
+
                             chatlist.adapter =
-                                ChatListAdapter(this@ChatListActivity, buddies!!, clickInterface)
+                                ChatListAdapter(this@ChatListActivity, list!!, clickInterface)
                             //chatlist.adapter.notifyDataSetChanged()
 
                         }
@@ -117,5 +117,44 @@ class ChatListActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun getTutorant(id: String, client: OkHttpClient): Student{
+        val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"
+        var tutorant = Student("", "","", "","","","","",0, "")
+
+        val api = Retrofit
+            .Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(RetroFitService::class.java)
+
+        val call = api.getStudent(id)
+        call.enqueue(object : Callback<Student> {
+            override fun onFailure(
+                call: Call<Student>,
+                t: Throwable
+            ) {
+                //textView.text = t.message
+            }
+
+            override fun onResponse(
+                call: Call<Student>,
+                response: Response<Student>
+            ) {
+                if (response.code() == 404) {
+                    //let user know that no one has matched up with you yet
+                    status.text = "Student doesnt exist!"
+                    return
+                }
+                else if(response.code() == 200){
+                    tutorant = response.body()!!
+                }
+            }
+        })
+        return tutorant
     }
 }

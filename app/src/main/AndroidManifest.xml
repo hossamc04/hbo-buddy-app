@@ -29,7 +29,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".authenticator.SignOutFirstActivity"></activity>
-        <activity android:name=".chat_2" />
+        <activity android:name=".ChatListActivity"> </activity>
         <activity android:name=".MainHBOActivity"></activity>
         <activity android:name=".edit_profile.EditProfileActivity" />
         <activity android:name=".authenticator.MakeNewAccountActivity" />

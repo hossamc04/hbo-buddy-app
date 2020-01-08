@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hbo_buddy_app.models.CoachTutorantConnection
+import com.example.hbo_buddy_app.models.Student
+import com.example.hbo_buddy_app.models.Tutorant
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 
-class ChatListAdapter(val context: Context, val list: List<CoachTutorantConnection>, val listener: ClickListener) : RecyclerView.Adapter<ChatListAdapter.MyViewHolder>(){
+class ChatListAdapter(val context: Context, val list: MutableList<Student>, val listener: ClickListener) : RecyclerView.Adapter<ChatListAdapter.MyViewHolder>(){
     class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val name = itemView.name
     }
@@ -24,7 +26,7 @@ class ChatListAdapter(val context: Context, val list: List<CoachTutorantConnecti
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.name.text = list.get(position).studentIDTutorant
+        holder.name.text = list.get(position).firstName
         holder.itemView.setOnClickListener{
             listener.onItemClick(holder.adapterPosition)
         }
