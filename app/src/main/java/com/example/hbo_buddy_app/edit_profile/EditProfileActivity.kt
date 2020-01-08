@@ -35,6 +35,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     var url : String = ""
 
+/*
     fun encodeForEmojis(string: String) : String {
         var byteArray : ByteArray = string.toByteArray(Charsets.UTF_8)
         Log.d("string: ", "")
@@ -46,6 +47,7 @@ class EditProfileActivity : AppCompatActivity() {
         var byteArray: ByteArray = Base64.decode(string, Base64.DEFAULT)
         return String(byteArray, Charsets.UTF_8)
     }
+*/
 
 
 
@@ -112,7 +114,7 @@ class EditProfileActivity : AppCompatActivity() {
         val profile: Student = intent.getParcelableExtra("profile")
 
         val voornaam: EditText = findViewById(R.id.edit_first_name)
-        voornaam.setText(decodeForEmojis(profile.firstName))
+        voornaam.setText(profile.firstName)
         val achternaam: EditText = findViewById(R.id.edit_last_name)
         achternaam.setText(profile.surName)
         val degree: EditText = findViewById(R.id.edit_degree)
@@ -174,7 +176,7 @@ class EditProfileActivity : AppCompatActivity() {
 
 
 
-            val profile2 = Student(degree, description, encodeForEmojis(voornaam), interests, phoneNumber, url, profile.studentID, study, studyyear.toInt(), achternaam)
+            val profile2 = Student(degree, description, voornaam, interests, phoneNumber, url, profile.studentID, study, studyyear.toInt(), achternaam)
 
 
             val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"

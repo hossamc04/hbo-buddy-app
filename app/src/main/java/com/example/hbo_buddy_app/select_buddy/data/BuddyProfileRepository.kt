@@ -1,6 +1,7 @@
 package com.example.hbo_buddy_app.select_buddy.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.hbo_buddy_app.authenticator.TokenHeaderInterceptor
 import com.example.hbo_buddy_app.authenticator.TokenHeaderInterceptor2
@@ -24,7 +25,9 @@ class BuddyProfileRepository @Inject constructor(
     var retrofitService : RetroFitService)
 {
 
-    fun makeConnection(userId : String, buddyId : String, studentPassword: String){
+    fun makeConnection(userId : String, buddyId : String, studentPassword: String) : LiveData<Boolean>{
+
+        val x : MutableLiveData<Boolean> = MutableLiveData();
 
         Log.d("userid", "${userId}" )
         Log.d("userpassword" , "${studentPassword}")
@@ -33,6 +36,7 @@ class BuddyProfileRepository @Inject constructor(
         retrofitService.login(LoginModel("581433", "test")).enqueue(object  : Callback<String>{
             override fun onFailure(call: Call<String>, t: Throwable) {
                Log.d("ff", "${t.message}")
+                x.value = false
             }
 
             val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"
@@ -60,16 +64,19 @@ class BuddyProfileRepository @Inject constructor(
                     userId,buddyId ,"success"
                 )).enqueue(object : Callback<ResponseBody>{
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        x.value = false
+
                     }
 
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                        if (response.isSuccessful && response.code() == 201){
+                        if (response.isSuccessful && response.code() == 204){
                             Log.d("connection made", "connection made")
+                            x.value = true
                         }
 
                         else{
                             Log.d("", "${response.code()}  ${response.message()} ")
+                            x.value = false
 
                         }
                     }
@@ -81,7 +88,7 @@ class BuddyProfileRepository @Inject constructor(
 
         })
 
-
+        return x
 
     }
 

@@ -1,21 +1,35 @@
 package com.example.hbo_buddy_app.select_buddy
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.hbo_buddy_app.MainActivity
 import com.example.hbo_buddy_app.R
+import com.example.hbo_buddy_app.authenticator.AuthenticatorActivity
 import com.example.hbo_buddy_app.models.CoachProfile
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 
 class BuddyProfileRecyclerViewAdapter(val act: SelectBuddyActivity) : RecyclerView.Adapter<BuddyProfileRecyclerViewAdapter.MyViewHolder>() {
+
+
+    val options : RequestOptions = RequestOptions()
+        .centerCrop()
+        .placeholder(R.drawable.emptyprofile)
+        .error(R.drawable.emptyprofile)
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -61,15 +75,11 @@ class BuddyProfileRecyclerViewAdapter(val act: SelectBuddyActivity) : RecyclerVi
         holder.description.text = "Bio: ${coach.description}"
         holder.button.text = "selecteer ${coach.firstName}"
 
-        if (myDataset[position].student.photo != ""){
-            try{
-                Glide.with(act).load(myDataset[position].student.photo).into(holder.image)}
-            catch (e: Exception){
-                //Log.d("fout", "${e}")
-                //holder.image.set
-        }
-        }
-
+        val imageUrl = myDataset[position]!!.student.photo
+        Glide.with(holder.itemView.context)
+            .load(imageUrl)
+            .apply(options)
+            .into(holder.image)
 
         if (myDataset[position].isVisable){
             holder.collapsable.visibility = View.VISIBLE
@@ -92,7 +102,9 @@ class BuddyProfileRecyclerViewAdapter(val act: SelectBuddyActivity) : RecyclerVi
 
         holder.button.setOnClickListener {
             act.makeConnection(myDataset[position].student.studentID);
-        }
+            act.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
     }
 
     override fun getItemCount() = myDataset.size
@@ -101,4 +113,15 @@ class BuddyProfileRecyclerViewAdapter(val act: SelectBuddyActivity) : RecyclerVi
         myDataset.addAll(coachList)
         notifyDataSetChanged()
     }
+
+    fun unlock(){
+        act.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
+
+    fun close(){
+        val intent = Intent(act.applicationContext, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        ContextCompat.startActivity(act.applicationContext, intent, null)
+    }
 }
+

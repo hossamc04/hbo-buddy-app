@@ -105,98 +105,23 @@ class ChatActivity : AppCompatActivity() {
 
                             Log.d("studentId", "${studentId}")
                             Log.d("coachId", "${response.body()!!.studentIDCoach}")
-                            //observeMessages()
-
                             observeMessages(studentId,response.body()!!.studentIDCoach)
                         }
                     }
+
                 })
+
             }
-        })
+
+        }
+    )
+
 
         //setuprecyclerview
         chat_recycler_view.layoutManager = LinearLayoutManager(this)
         chat_recycler_view.adapter = adapter
 
-        //observe
-        chat_send_button.setOnClickListener {
-            val input = chat_textedit.text.toString()
 
-            val baseUrl = "https://dev-tinderclonefa-test.azurewebsites.net/api/"
-
-            val okHttpClient: OkHttpClient = OkHttpClient()
-                .newBuilder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS).build()
-
-
-            val retroFitService = Retrofit
-                .Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build()
-                .create(RetroFitService::class.java)
-
-            retroFitService.login(LoginModel("581433", "test")).enqueue(object : Callback<String>{
-                override fun onFailure(call: Call<String>, t: Throwable) {
-
-                }
-
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d("AdminToken", "${response.body()}")
-                    val okHttpClient2 = OkHttpClient()
-                        .newBuilder()
-                        .connectTimeout(60, TimeUnit.SECONDS)
-                        .readTimeout(60, TimeUnit.SECONDS)
-                        .addInterceptor(TokenHeaderInterceptor(response.body()!!))
-                        .writeTimeout(60, TimeUnit.SECONDS).build()
-
-                    val retrofitService2 = Retrofit
-                        .Builder()
-                        .baseUrl(baseUrl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .client(okHttpClient2)
-                        .build()
-                        .create(RetroFitService::class.java)
-
-                    //observeMessages()
-
-                    retrofitService2.getCoachTutorantConnection(studentId).enqueue(object : Callback<CoachTutorantConnection>{
-                        override fun onFailure(call: Call<CoachTutorantConnection>, t: Throwable) {
-                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                        }
-
-                        override fun onResponse(call: Call<CoachTutorantConnection>, response: Response<CoachTutorantConnection>) {
-                            if (response.isSuccessful && response.code() == 200){
-
-                                Log.d("studentId", "${studentId}")
-                                Log.d("coachId", "${response.body()!!.studentIDCoach}")
-                                //observeMessages()
-
-                                viewModel.onSendMessage(studentId,response.body()!!.studentIDCoach, chat_textedit.text.toString())
-                                //viewModel.onSendMessage("","")
-
-
-
-
-
-
-                            }
-                        }
-
-                    })
-
-                }
-
-            }
-            )
-
-
-        }
 
     }
     fun observeMessages(studentId : String, coachId: String){

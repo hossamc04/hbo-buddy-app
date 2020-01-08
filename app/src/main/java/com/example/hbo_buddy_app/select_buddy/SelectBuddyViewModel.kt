@@ -17,8 +17,8 @@ class SelectBuddyViewModel @Inject constructor(
     }
 
 
-    fun onBuddySelect(loginId: String, CoachId : String, studentPassword: String){
-        repository.makeConnection(loginId, CoachId, studentPassword)
+    fun onBuddySelect(loginId: String, CoachId : String, studentPassword: String) : LiveData<Boolean>{
+        return repository.makeConnection(loginId, CoachId, studentPassword)
     }
 
 }
