@@ -63,7 +63,14 @@ class SelectBuddyActivity : AppCompatActivity() {
         //observe changes
         viewModel.getAllCoaches().observe(this, Observer {
             Log.d("SIZE", it.size.toString())
-            recyclerViewAdapter.addItems(it)
+            val newArray = ArrayList<CoachProfile>()
+            it.forEach{ profile ->
+                if (profile.coach.workload != "0" || profile.student.firstName != "mock"){
+                    newArray.add(profile)
+                }
+            }
+
+            recyclerViewAdapter.addItems(newArray)
         })
     }
 

@@ -36,11 +36,10 @@ class EditProfileActivity : AppCompatActivity() {
     var url : String = ""
 
     fun encodeForEmojis(string: String) : String {
-        if (string != ""){
         var byteArray : ByteArray = string.toByteArray(Charsets.UTF_8)
+        Log.d("string: ", "")
+
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
-        }
-        return string
     }
 
     fun decodeForEmojis(string : String) : String{

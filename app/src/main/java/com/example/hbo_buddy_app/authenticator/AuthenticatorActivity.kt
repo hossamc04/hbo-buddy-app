@@ -16,7 +16,7 @@ import com.example.hbo_buddy_app.MainActivity
 import com.example.hbo_buddy_app.MainHBOActivity
 import com.example.hbo_buddy_app.R
 import com.example.hbo_buddy_app.dagger.activity_components.DaggerAuthenticatorActivityComponent
-import com.example.hbo_buddy_app.databinding.ActivityAuthenticatorBinding
+import kotlinx.android.synthetic.main.activity_authenticator.*
 import javax.inject.Inject
 
 class AuthenticatorActivity : AppCompatActivity() {
@@ -28,47 +28,59 @@ class AuthenticatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_authenticator)
+
+        val am = AccountManager.get(this)
+        if(am.getAccountsByType("inholland_buddy_app").size > 1){
+            val intent = Intent(this , SignOutFirstActivity::class.java)
+            ContextCompat.startActivity(this, intent, null)
+            finish()
+        }
 
         //viewmodel
         DaggerAuthenticatorActivityComponent.create().inject(this)
         viewModel = ViewModelProviders.of(this, daggerViewModelFactory).get(LoginViewModel::class.java)
 
 
-        //databinding
-        val bind : ActivityAuthenticatorBinding = DataBindingUtil.setContentView(this, R.layout.activity_authenticator)
-        bind.lifecycleOwner = this
-        bind.viewModel = viewModel
+        val password : String = "";
+        val username: String = "";
 
-        //observe result
-        viewModel.login().observe(this, Observer{
-            if (it != null){
-                val am = AccountManager.get(this)
-                val acc = Account(viewModel.userName, "inholland_buddy_app")
 
-                val extraData = Bundle()
-                extraData.putString("student_type", it)
-                am.addAccountExplicitly(acc, viewModel.passWord, extraData)
+        button_login.setOnClickListener {
+            viewModel.login(gebruikersnaam.text.toString(), wachtwoord.text.toString()).observe(this, Observer{
+                if (it != null){
 
-                if (it == "3"){
-                    val intent = Intent(this , MainHBOActivity::class.java)
-                    ContextCompat.startActivity(this, intent, null)
-                    finish()
+                    val acc = Account(gebruikersnaam.text.toString(), "inholland_buddy_app")
+
+                    val extraData = Bundle()
+                    extraData.putString("student_type", it)
+                    am.addAccountExplicitly(acc, wachtwoord.text.toString(), extraData)
+
+                    if (it == "3"){
+                        val intent = Intent(this , MainHBOActivity::class.java)
+                        ContextCompat.startActivity(this, intent, null)
+                        finish()
+
+                    }
+
+                    if (it == "4"){
+                        val intent = Intent(this , MainActivity::class.java)
+                        ContextCompat.startActivity(this, intent, null)
+                        finish()
+
+                    }
 
                 }
+            })
 
-                if (it == "4"){
-                    val intent = Intent(this , MainActivity::class.java)
-                    ContextCompat.startActivity(this, intent, null)
-                    finish()
 
-                }
 
-            }
-        })
+        }
 
-        val maakNieuwButton : TextView = findViewById(R.id.maak_nieuw_button)
 
-        maakNieuwButton.setOnClickListener{
+
+
+        maak_nieuw_button.setOnClickListener{
             val intent = Intent(this , MakeNewAccountActivity::class.java)
             ContextCompat.startActivity(this, intent, null)
             finish()

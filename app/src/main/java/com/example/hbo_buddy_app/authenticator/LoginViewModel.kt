@@ -9,12 +9,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val repository: LoginRepository)
     : ViewModel()  {
 
-    var userName  : String?  = null
-    var passWord  : String? = null
-
-
-    fun login(): LiveData<String?> {
-        return repository.login(userName, passWord)
+    fun login(username : String, passWord : String): LiveData<String?> {
+        return repository.login(username, passWord)
         //Log.d("test " , "clicked" )
 
     }

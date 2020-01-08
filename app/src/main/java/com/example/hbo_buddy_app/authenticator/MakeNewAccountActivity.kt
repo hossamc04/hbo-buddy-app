@@ -118,7 +118,7 @@ class MakeNewAccountActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<String>, response: Response<String>) {
                                 if (response.isSuccessful && response.code() == 201 && role == 4){
                                     retrofitService2.addTutorantProfile(TutorantProfile(
-                                      Student("","", "mock","" ,"" ,"" ,leerlingnummer.text.toString() ,"",2,""),
+                                      Student("","", "","" ,"" ,"" ,leerlingnummer.text.toString() ,"",2,""),
                                         Tutorant(leerlingnummer.text.toString())
                                     )).enqueue(object : Callback<String>{
                                         override fun onFailure(call: Call<String>, t: Throwable) {

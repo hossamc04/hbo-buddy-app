@@ -108,24 +108,11 @@ class ChatActivity : AppCompatActivity() {
                             //observeMessages()
 
                             observeMessages(studentId,response.body()!!.studentIDCoach)
-
-
-
                         }
                     }
-
                 })
-
             }
-
-        }
-        )
-
-
-
-
-
-
+        })
 
         //setuprecyclerview
         chat_recycler_view.layoutManager = LinearLayoutManager(this)
@@ -191,6 +178,10 @@ class ChatActivity : AppCompatActivity() {
                                 //observeMessages()
 
                                 viewModel.onSendMessage(studentId,response.body()!!.studentIDCoach, chat_textedit.text.toString())
+                                //viewModel.onSendMessage("","")
+
+
+
 
 
 
