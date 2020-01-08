@@ -140,7 +140,7 @@ class MakeNewAccountActivity : AppCompatActivity() {
                                     retrofitService2.addCoachProfile(
                                         CoachProfile(
                                             Coach(leerlingnummer.text.toString(), "8"),
-                                            Student("","", "mock","" ,"" ,"" ,leerlingnummer.text.toString() ,"",2,"")
+                                            Student("","", "","" ,"" ,"" ,leerlingnummer.text.toString() ,"",2,"")
                                         )
                                     ).enqueue(object : Callback<String>{
                                         override fun onFailure(call: Call<String>, t: Throwable) {

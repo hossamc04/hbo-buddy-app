@@ -30,7 +30,21 @@ class SelectBuddyActivity : AppCompatActivity() {
         val acc : Account = am.accounts[0]
         val pass = am.getPassword(acc)
         Log.d("pass", "${pass}")
-        viewModel.onBuddySelect(userid, buddyId,pass)
+        viewModel.onBuddySelect(userid, buddyId,pass).observe(this, Observer{
+
+            if(it){
+                recyclerViewAdapter.close()
+            }
+
+            else{
+                recyclerViewAdapter.unlock()
+            }
+
+
+
+        })
+
+
 
 
     }

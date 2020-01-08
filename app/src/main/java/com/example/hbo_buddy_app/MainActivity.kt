@@ -18,6 +18,7 @@ import com.example.hbo_buddy_app.select_buddy.SelectBuddyActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
+import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +29,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
+
+    val madeconnection : Boolean = false
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-
         //if hbo account redirect to hbo page
         val accountType : Int = am.getUserData(accounts[0], "student_type").toInt()
         if (accountType == 3){
@@ -54,20 +58,16 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        //check if coachconnection is made
 
 
 
-
-
-
-        val zoekBuddyButton : Button = findViewById(R.id.toBuddySelection)
-        zoekBuddyButton.setOnClickListener {
+        toBuddySelection.setOnClickListener {
             val intent = Intent(this, SelectBuddyActivity::class.java)
             ContextCompat.startActivity(this, intent, null)
         }
 
-        val naarChatButton : Button = findViewById(R.id.toChat)
-        naarChatButton.setOnClickListener {
+        toChat.setOnClickListener {
             val intent = Intent(this, ChatActivity:: class.java)
             ContextCompat.startActivity(this, intent, null )
         }
@@ -81,11 +81,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-        val toProfileButton: Button = findViewById(R.id.toEditProfile)
-
-        toProfileButton.setOnClickListener {
+        toEditProfile.setOnClickListener {
             val studentId = accounts[0].name
             val accountType : Int = am.getUserData(accounts[0], "student_type").toInt()
 
@@ -151,13 +147,6 @@ class MainActivity : AppCompatActivity() {
                             }
                          }
                      })
-
-
-
-
-
-
-
         }
 
 

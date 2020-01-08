@@ -71,26 +71,31 @@ class ChatRepository @Inject constructor(
                         if (response.isSuccessful){
                             retrofitService2.getMessages(studentId,coachID).enqueue(object: Callback<ArrayList<Message>>{
                                 override fun onFailure(call: Call<ArrayList<Message>>, t: Throwable) {
-                                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                    Log.d("chattest", "${t.message}")
                                 }
 
                                 override fun onResponse(call: Call<ArrayList<Message>>, response: Response<ArrayList<Message>>) {
-                                    if(response.isSuccessful && response.code() == 201){
+                                    if(response.isSuccessful && response.code() == 200){
                                      Log.d("resp", "${response.code()}, ${response.message()}, ${response.body()}")
+                                        arrayList.addAll(response.body()!!)
+                                        mutableLiveData.value = arrayList
                                     }
-                                   // arrayList.addAll(response.body()!!)
+
+
 
                                     retrofitService2.getMessages(coachID, studentId).enqueue(object: Callback<ArrayList<Message>>{
                                         override fun onFailure(call: Call<ArrayList<Message>>, t: Throwable) {
-                                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                            Log.d("chattest", "${t.message}")
+
                                         }
 
                                         override fun onResponse(call: Call<ArrayList<Message>>, response: Response<ArrayList<Message>>) {
-                                            if(response.isSuccessful && response.code()== 201){
+                                            if(response.isSuccessful && response.code()== 200){
                                                 Log.d("resp", "${response.code()}, ${response.message()}, ${response.body()}")
+                                                arrayList.addAll(response.body()!!)
+                                                mutableLiveData.value = arrayList
                                             }
-                                            // arrayList.addAll(response.body()!!)
-                                            mutableLiveData.value = arrayList
+
                                         }
                                     })
                                 }
