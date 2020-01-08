@@ -122,11 +122,6 @@ class ChatListActivity : AppCompatActivity() {
                                 })
                             }
 
-
-
-//                            viewModel.getStudent(studentId, okHttpClient2).observe(this@ChatListActivity, Observer {
-//                                adapter.addItems(it)
-//                            })
                             chatlist.layoutManager = LinearLayoutManager(this@ChatListActivity)
                             chatlist.adapter = adapter
 
