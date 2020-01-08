@@ -21,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_weight="20"
-        android:ems="20"
         android:minLines="6"
         android:lines="8"
         />

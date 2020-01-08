@@ -106,6 +106,12 @@ class ChatActivity : AppCompatActivity() {
                             Log.d("studentId", "${studentId}")
                             Log.d("coachId", "${response.body()!!.studentIDCoach}")
                             observeMessages(studentId,response.body()!!.studentIDCoach)
+
+                            chat_send_button.setOnClickListener {
+                                sendMessage(studentId, response.body()!!.studentIDCoach)
+                            }
+
+
                         }
                     }
 
@@ -117,6 +123,8 @@ class ChatActivity : AppCompatActivity() {
     )
 
 
+
+
         //setuprecyclerview
         chat_recycler_view.layoutManager = LinearLayoutManager(this)
         chat_recycler_view.adapter = adapter
@@ -124,10 +132,15 @@ class ChatActivity : AppCompatActivity() {
 
 
     }
+
+
+    fun sendMessage(studentId: String, coachId: String){
+        viewModel.onSendMessage(studentId, coachId, chat_textedit.text.toString())
+    }
+
+
     fun observeMessages(studentId : String, coachId: String){
-
         viewModel.getAllMesages(coachId, studentId).observe(this, Observer {
-
             adapter.addItems(it)
 
         })

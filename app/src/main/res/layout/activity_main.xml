@@ -34,9 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="#A5A5A5"
+
         app:itemTextColor="@color/colorPrimaryDark"
-        app:menu="@menu/menu_navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/menu_navigation" />
 
 
 </RelativeLayout>
