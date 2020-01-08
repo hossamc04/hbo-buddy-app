@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/zoek"
+        android:title="zoek"
+        android:icon="@drawable/searchbud">
+    </item>
+
+    <item
+        android:id="@+id/home"
+        android:title="home"
+        android:icon="@drawable/home">
+    </item>
+
+    <item
+        android:id="@+id/profiel"
+        android:title="profiel"
+        android:icon="@drawable/profile">
+    </item>
+</menu>
