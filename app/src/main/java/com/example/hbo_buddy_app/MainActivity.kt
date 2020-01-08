@@ -156,12 +156,6 @@ class MainActivity : AppCompatActivity() {
 
         //check for profile
 
-
-
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener<InstanceIdResult> {
-
-            })
     }
 }
 
