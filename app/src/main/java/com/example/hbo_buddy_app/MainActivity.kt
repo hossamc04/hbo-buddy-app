@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         toBuddySelection.setOnClickListener {
             val intent = Intent(this, SelectBuddyActivity::class.java)
             ContextCompat.startActivity(this, intent, null)
