@@ -75,7 +75,10 @@ class ChatRepository @Inject constructor(
                                 }
 
                                 override fun onResponse(call: Call<ArrayList<Message>>, response: Response<ArrayList<Message>>) {
-                                    arrayList.addAll(response.body()!!)
+                                    if(response.isSuccessful && response.code() == 201){
+                                     Log.d("resp", "${response.code()}, ${response.message()}, ${response.body()}")
+                                    }
+                                   // arrayList.addAll(response.body()!!)
 
                                     retrofitService2.getMessages(coachID, studentId).enqueue(object: Callback<ArrayList<Message>>{
                                         override fun onFailure(call: Call<ArrayList<Message>>, t: Throwable) {
@@ -83,7 +86,10 @@ class ChatRepository @Inject constructor(
                                         }
 
                                         override fun onResponse(call: Call<ArrayList<Message>>, response: Response<ArrayList<Message>>) {
-                                            arrayList.addAll(response.body()!!)
+                                            if(response.isSuccessful && response.code()== 201){
+                                                Log.d("resp", "${response.code()}, ${response.message()}, ${response.body()}")
+                                            }
+                                            // arrayList.addAll(response.body()!!)
                                             mutableLiveData.value = arrayList
                                         }
                                     })

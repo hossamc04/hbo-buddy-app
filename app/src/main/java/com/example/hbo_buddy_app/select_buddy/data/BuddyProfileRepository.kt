@@ -121,32 +121,12 @@ class BuddyProfileRepository @Inject constructor(
                     override fun onResponse(call: Call<ArrayList<CoachProfile>>, response: Response<ArrayList<CoachProfile>>) {
                         if (response.isSuccessful){
                             val arr = response.body()!!
-
-                            arr.forEach{
-                                if (it.coach.workload == "0" || it.student.firstName == "mock"){
-                                    arr.remove(it)
-                                }
-                            }
-
                             mutableLiveData.value = arr
 
-
-                        }
-                    }
-
+                        } }
                 })
-
             }
-
         })
         return mutableLiveData
     }
-
-
-
-    fun startPoll(){
-        //var lastMessage: String
-        //lastMessage = "";
-    }
-
 }
