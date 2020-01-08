@@ -2,6 +2,7 @@ package com.example.hbo_buddy_app.dagger.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.hbo_buddy_app.ChatListViewModel
 import com.example.hbo_buddy_app.authenticator.LoginViewModel
 import com.example.hbo_buddy_app.chat.ChatViewModel
 import com.example.hbo_buddy_app.select_buddy.SelectBuddyViewModel
@@ -31,7 +32,10 @@ internal abstract class MultiBindModule{
     @ViewModelKey(ChatViewModel::class)
     abstract fun bindChatViewModel(viewModel: ChatViewModel) : ViewModel
 
-
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChatListViewModel::class)
+    abstract fun bindChatListViewModel(viewModel: ChatListViewModel) : ViewModel
 
 
 }

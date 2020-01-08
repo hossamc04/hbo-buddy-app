@@ -21,6 +21,11 @@ class ChatListAdapter(val context: Context, val list: MutableList<Student>, val 
         return MyViewHolder(view)
     }
 
+    fun addItems(student: Student){
+        list.add(student)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return list.size
     }

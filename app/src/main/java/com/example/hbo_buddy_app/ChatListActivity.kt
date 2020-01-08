@@ -5,9 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hbo_buddy_app.authenticator.TokenHeaderInterceptor
 import com.example.hbo_buddy_app.chat.ChatActivity
+import com.example.hbo_buddy_app.ChatListViewModel
+import com.example.hbo_buddy_app.dagger.activity_components.DaggerChatActivityComponent
+import com.example.hbo_buddy_app.dagger.activity_components.DaggerChatListActivityComponent
 import com.example.hbo_buddy_app.models.*
 import com.example.hbo_buddy_app.retrofit.RetroFitService
 import kotlinx.android.synthetic.main.activity_chat_list.*
@@ -19,13 +25,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class ChatListActivity : AppCompatActivity() {
+    @Inject
+    lateinit var daggerViewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModel: ChatListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTitle("Chats")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
+
+        DaggerChatListActivityComponent.create().inject(this)
+        viewModel = ViewModelProviders.of(this, daggerViewModelFactory).get(ChatListViewModel::class.java)
 
         val am = AccountManager.get(this)
         val accounts = am.getAccountsByType("inholland_buddy_app")
@@ -90,8 +103,6 @@ class ChatListActivity : AppCompatActivity() {
                                 status.text = "You have yet to be matched up with!"
                                 return
                             }
-
-                            chatlist.layoutManager = LinearLayoutManager(this@ChatListActivity)
                             val buddies = response.body()
 
                             val clickInterface: ClickListener = object : ClickListener {
@@ -103,14 +114,22 @@ class ChatListActivity : AppCompatActivity() {
                                 }
                             }
                             val list: MutableList<Student> = mutableListOf<Student>()
+                            val adapter = ChatListAdapter(this@ChatListActivity, list!!, clickInterface)
+
                             buddies!!.forEach {
-                                val tutorant = getTutorant(it.studentIDTutorant, okHttpClient2)
-                                list.add(tutorant)
+                                viewModel.getStudent(it.studentIDTutorant, okHttpClient2).observe(this@ChatListActivity, Observer {
+                                    adapter.addItems(it)
+                                })
                             }
 
-                            chatlist.adapter =
-                                ChatListAdapter(this@ChatListActivity, list!!, clickInterface)
-                            //chatlist.adapter.notifyDataSetChanged()
+
+
+//                            viewModel.getStudent(studentId, okHttpClient2).observe(this@ChatListActivity, Observer {
+//                                adapter.addItems(it)
+//                            })
+                            chatlist.layoutManager = LinearLayoutManager(this@ChatListActivity)
+                            chatlist.adapter = adapter
+
 
                         }
                     })
